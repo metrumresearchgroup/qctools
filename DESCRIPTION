@@ -1,0 +1,22 @@
+Package: mrgqc
+Title: QC Management and Helpers 
+Version: 0.0.0.8000
+Authors@R: 
+    c(
+    person(given = "Eric", family = "Anderson", email = "andersone@metrumrg.com", role = c("aut")),
+    person(given = "Michael", family = "McDermott", email = "michaelm@metrumrg.com", role = c("cre")))
+Description: Create, append and review the QC log. Provides helper functions
+        for completing QC tasks.
+URL: https://github.com/metrumresearchgroup/mrgqc
+BugReports: https://github.com/metrumresearchgroup/mrgqc/issues
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    magrittr (>= 2.0.3)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: 
+    knitr
