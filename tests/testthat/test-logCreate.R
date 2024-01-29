@@ -10,8 +10,8 @@ setwd(temp_loc)
 test_that("logCreate generates a QC log csv file with expected columns", {
   
   logCreate()
-  path_to_qc_log <- file.path(temp_loc, "QClog.csv")
   
+  path_to_qc_log <- file.path(temp_loc, "QClog.csv")
   expect_true(file.exists(path_to_qc_log))
   
   col_headers <- readLines(path_to_qc_log)
