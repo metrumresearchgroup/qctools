@@ -11,7 +11,11 @@
 #' @export
 logCreate <- function(directory=getwd()){
   
-  if (file.exists(logName(directory))) {
+  path_to_qc_log <- file.path(absDir(directory),"QClog.csv")
+  # Confirm directory exists
+  dirTest(directory)
+  # Confirm QC log has not already been created
+  if (file.exists(path_to_qc_log)) {
     stop("QC log already exists")
   }
   
@@ -22,6 +26,6 @@ logCreate <- function(directory=getwd()){
       reviewer=character(0),
       time=character(0)
     ),
-    file=logName(directory)
+    file= path_to_qc_log
   )
 }
