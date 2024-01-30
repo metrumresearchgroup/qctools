@@ -1,5 +1,5 @@
 #' @keywords internal
-logRoot <- function(directory=getwd()){
+logRoot <- function(directory=here::here()){
   
   # Make sure the given directory exists
   dirTest(directory)
@@ -9,7 +9,7 @@ logRoot <- function(directory=getwd()){
   root <- NULL
   parent <- parentDir(getwd())
   
-  if (file.exists(logName(getwd()))) {
+  if (file.exists(file.path(absDir(getwd()),"QClog.csv"))) {
     root <- getwd()
   } else if(!is.null(parent)) {
     root <- logRoot(parent)

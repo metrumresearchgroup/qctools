@@ -2,19 +2,17 @@
 #' 
 #' @description 
 #' Creates an empty table in the directory specified with the name "QClog.csv".
-#' 
-#' @param directory directory in which to create the log file
+#' By default, the csv will be created in the directory where the R studio 
+#' project exists. 
 #' 
 #' @usage 
-#' logCreate(directory=getwd())
+#' logCreate()
 #' 
 #' @export
-logCreate <- function(directory=getwd()){
+logCreate <- function(){
   
-  path_to_qc_log <- file.path(absDir(directory),"QClog.csv")
-  # Confirm directory exists
-  dirTest(directory)
-  # Confirm QC log has not already been created
+  path_to_qc_log <- file.path(logDir(),"QClog.csv")
+  
   if (file.exists(path_to_qc_log)) {
     stop("QC log already exists")
   }
@@ -24,7 +22,7 @@ logCreate <- function(directory=getwd()){
       file=character(0),
       commit=character(0),
       reviewer=character(0),
-      time=character(0)
+      datetime=character(0)
     ),
     file= path_to_qc_log
   )
