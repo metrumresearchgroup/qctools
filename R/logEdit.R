@@ -1,3 +1,4 @@
+#' @noRd
 logEdit <- function(.file,
                     .reviewer,
                     .commit) {

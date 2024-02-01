@@ -1,4 +1,4 @@
-#' @keywords internal
+#' @noRd
 logWrite <- function(x,file) {
   utils::write.table(
     x,

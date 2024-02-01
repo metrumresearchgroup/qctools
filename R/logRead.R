@@ -1,4 +1,4 @@
-#' @keywords internal
+#' @noRd
 logRead <- function(file) {
   utils::read.table(
     file,
