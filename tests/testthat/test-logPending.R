@@ -6,30 +6,30 @@ test_that("logPending accepts files in the QC log and returns expected errors", 
   
   path_to_qc_log <- file.path(logDir(),"QClog.csv")
   
-  # logAccept file and confirm commit matches expected
+  log <- logRead(path_to_qc_log)
+  pending <- logPending()
+  
   file1 <- "script/data-assembly.R"
   file2 <- "script/pk/load-spec.R"
+  file3 <- "script/combine-da.R"
+  file4 <- "script/examp-txt.txt"
   
-  logAccept(file1)
-  logAccept(file2)
+  if (!gitLog(file1)[["commit"]] %in% log[log$file == file1, "commit"]) {
+    expect_true(file1 %in% pending$file)
+  }
   
-  log <- logRead(path_to_qc_log)
+  if (!gitLog(file2)[["commit"]] %in% log[log$file == file2, "commit"]) {
+    expect_true(file2 %in% pending$file)
+  }
   
-  file1_commits <- log[log$file == file1, "commit"]
-  expect_equal(gitLog(file1)[["commit"]], file1_commits[length(file1_commits)])
+  if (gitLog(file3)[["commit"]] %in% log[log$file == file3, "commit"]) {
+    expect_true(!file3 %in% pending$file)
+  }
   
-  file2_commits <- log[log$file == file2, "commit"]
-  expect_equal(gitLog(file2)[["commit"]], file2_commits[length(file2_commits)])
+  if (!gitLog(file4)[["commit"]] %in% log[log$file == file4, "commit"]) {
+    expect_true(file4 %in% pending$file)
+  }
   
-  expect_error(logAccept(file1))
-  
-  new_file <- "script/examp-yaml.yaml"
-  
-  logAccept(new_file)
-  log_upd <- logRead(path_to_qc_log)
-  
-  expect_equal(log_upd$commit[log_upd$file == new_file], gitLog(new_file)[["commit"]])
-  expect_equal(log_upd$reviewer[log_upd$file == new_file], Sys.info()[["user"]])
 })
 
 setwd(start)
