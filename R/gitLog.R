@@ -1,3 +1,12 @@
+#' Get commit info of last modified version of a file
+#' 
+#' @description 
+#' Returns a list including the commit hash, last author and datetime of last 
+#' commit for a specific file. 
+#' 
+#' @param file character file path (either the absolute or relative file path from the QC log)
+#' 
+#' @export
 gitLog <- function(file) {
   
   file_abs <- fs::path_rel(path = file, start = logDir())
