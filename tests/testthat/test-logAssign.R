@@ -25,4 +25,19 @@ test_that("logAssign adds files to QC log with expected values", {
   expect_error(logAssign(new_file))
 })
 
+test_that("logAssign works with variation of paths provided", {
+  
+  setwd(demoRepo())
+  
+  path_to_qc_log <- file.path(logDir(),"QClog.csv")
+  
+  setwd("script")
+  
+  logAccept("examp-yaml.yaml")
+  log <- logRead(path_to_qc_log)
+  
+  expect_true("script/examp-yaml.yaml" %in% log$file)
+  
+})
+
 setwd(start)
