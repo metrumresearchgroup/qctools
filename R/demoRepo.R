@@ -24,7 +24,7 @@ demoRepo <- function() {
   }
   
   # Create svn repo at specified locations
-  system(glue::glue("git init {repoInitPath}"))
+  system(glue::glue("git init {repoInitPath} --quiet"))
   
   setwd(repoInitPath)
   rstudioapi::initializeProject()
@@ -73,7 +73,7 @@ demoRepo <- function() {
   
   # Check everything into SVN
   system("git add *")
-  system(glue::glue("git commit -m 'initial commit'"))
+  system(glue::glue("git commit -m 'initial commit' --quiet"))
   
   # Assign and accept scripts in QC log
   logAssign("script/data-assembly.R")
@@ -82,7 +82,7 @@ demoRepo <- function() {
   logAssign("script/examp-txt.txt")
   
   system("git add *")
-  system(glue::glue("git commit -m 'logAssign scripts ready for QC'"))
+  system(glue::glue("git commit -m 'logAssign scripts ready for QC' --quiet"))
   
   logAccept("script/data-assembly.R")
   logAccept("script/pk/load-spec.R")
@@ -90,7 +90,7 @@ demoRepo <- function() {
   
   # Check in updates to QC log
   system("git add *")
-  system(glue::glue("git commit -m 'logAccept scripts ready for QC'"))
+  system(glue::glue("git commit -m 'logAccept scripts ready for QC' --quiet"))
   
   # Make edits to QCed file
   writeLines(
@@ -99,7 +99,7 @@ demoRepo <- function() {
   )
   
   system("git add *")
-  system(glue::glue("git commit -m 'modify load-spec script'"))
+  system(glue::glue("git commit -m 'modify load-spec script' --quiet"))
 
   writeLines(
     c(
@@ -118,7 +118,7 @@ demoRepo <- function() {
   )
   
   system("git add *")
-  system(glue::glue("git commit -m 'modify data-assembly'"))
+  system(glue::glue("git commit -m 'modify data-assembly' --quiet"))
 
   writeLines(
     c("The following tasks are suggested to gain familiarity with the review package:",

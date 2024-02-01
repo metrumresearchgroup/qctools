@@ -2,11 +2,11 @@
 # - Create a QC log with the expected column names
 # - Make sure the QC log cannot be overwritten with logCreate()
 
-
+start <- getwd()
 
 test_that("logCreate generates a QC log csv file with expected columns", {
   
-  setwd(demoGit())
+  setwd(demoRepo())
   file.remove("QClog.csv")
   
   logCreate()
@@ -16,8 +16,8 @@ test_that("logCreate generates a QC log csv file with expected columns", {
   
   col_headers <- readLines(path_to_qc_log)
   expect_equal("file,commit,reviewer,datetime", col_headers)
-})
-
-test_that("logCreate stops if asked to create QC log in directory it already exists", {
+  
   expect_error(logCreate())
 })
+
+setwd(start)
