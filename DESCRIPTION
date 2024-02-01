@@ -19,6 +19,7 @@ Imports:
     rprojroot
 Suggests: 
     testthat (>= 3.0.0),
+    knitr,
     rstudioapi
 Config/testthat/edition: 3
 VignetteBuilder: 
