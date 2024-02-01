@@ -15,9 +15,9 @@ logAccept <- function(file){
   git_commit <- gitLog(file)
   
   logEdit(
-    file = file,
-    reviewer = Sys.info()[["user"]],
-    commit = git_commit$commit
+    .file = file,
+    .reviewer = Sys.info()[["user"]],
+    .commit = git_commit$commit
   )
   
 }

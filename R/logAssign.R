@@ -15,9 +15,9 @@ logAssign <- function(file,
                       reviewer = "anyone") {
   
   logEdit(
-    file = file,
-    reviewer = reviewer,
-    commit = "assigned"
+    .file = file,
+    .reviewer = reviewer,
+    .commit = "Initial-Assignment"
   )
 }
 

@@ -1,4 +1,4 @@
 #' @keywords internal
 logDir <- function() {
-  here::here()
+  rprojroot::find_rstudio_root_file()
 }

@@ -12,7 +12,7 @@
 #' generated whenever the user restarts R. 
 #'
 #' @export
-demoGit <- function() {
+demoRepo <- function() {
   
   curDir <- getwd()
   on.exit(setwd(curDir))
@@ -27,6 +27,7 @@ demoGit <- function() {
   system(glue::glue("git init {repoInitPath}"))
   
   setwd(repoInitPath)
+  rstudioapi::initializeProject()
   
   # Add scripts to the repo
   fs::dir_create("script/pk", recurse = TRUE)

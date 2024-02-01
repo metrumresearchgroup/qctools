@@ -1,30 +1,46 @@
-logEdit <- function(file,
-                    reviewer,
-                    commit) {
+logEdit <- function(.file,
+                    .reviewer,
+                    .commit) {
   
-  file_abs <- fs::path_rel(path = file, start = logDir())
   path_to_qc_log <- file.path(logDir(),"QClog.csv")
   
-  if (!file.exists(file_abs)) {
-    stop(paste("nonexistent file -", fs::path_abs(path = file)))
-  }
-  
   if (!file.exists(path_to_qc_log)) {
-    stop("No QC log found")
+    stop("No QC log found", call. = FALSE)
   }
   
   log <- logRead(path_to_qc_log)
   
-  # Check if file is already assigned
-  if (file_abs %in% log$file & commit == "assigned") {
-    stop(paste(file, " has already been assigned"))
+  file_abs <- fs::path_abs(path = .file)
+  
+  if (!file.exists(file_abs)) {
+    stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
+  }
+  
+  file_rel <- fs::path_rel(path = file_abs, start = logDir())
+  
+  if (any(log$file == file_rel) & .commit == "Initial-Assignment") {
+    stop(
+      paste0(
+        "Cannot assign file '", file_rel, "' (already exists in QC log)"
+      ),
+      call. = FALSE
+    )
+  } 
+  
+  if (any(log$file == file_rel & log$commit == .commit)) {
+    stop(
+      paste0(
+        file_rel, " already accepted in QC log at commit='", .commit, "'" 
+      ),
+      call. = FALSE
+    )
   }
   
   new_row <-
     data.frame(
-      file = file_abs,
-      commit = commit,
-      reviewer = reviewer,
+      file = file_rel,
+      commit = .commit,
+      reviewer = .reviewer,
       datetime = paste(as.character(as.POSIXlt(Sys.time(), "GMT")), "GMT")
     )
   
