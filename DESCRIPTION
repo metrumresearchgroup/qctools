@@ -16,6 +16,8 @@ RoxygenNote: 7.3.1
 Imports: 
     magrittr (>= 2.0.3),
     utils,
+    fs,
+    processx,
     rprojroot
 Suggests: 
     testthat (>= 3.0.0),

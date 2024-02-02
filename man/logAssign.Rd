@@ -4,7 +4,7 @@
 \alias{logAssign}
 \title{Assign Files to QC Log}
 \usage{
-logAssign(file = tempfile())
+logAssign(file, reviewer = "anyone")
 }
 \arguments{
 \item{file}{character file path (either the absolute or relative file path from the QC log)}
@@ -14,4 +14,10 @@ logAssign(file = tempfile())
 \description{
 Appends a row to the QC log for the file given with the default reviewer
 set to "anyone".
+}
+\examples{
+\dontrun{ 
+logAssign(file = tempfile(), reviewer = "anyone")
+}
+
 }

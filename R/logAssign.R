@@ -7,8 +7,10 @@
 #' @param file character file path (either the absolute or relative file path from the QC log)
 #' @param reviewer specify a specific person to review the file
 #' 
-#' @usage 
-#' logAssign(file = tempfile())
+#' @examples 
+#' \dontrun{ 
+#' logAssign(file = tempfile(), reviewer = "anyone")
+#' }
 #' 
 #' @export
 logAssign <- function(file,
