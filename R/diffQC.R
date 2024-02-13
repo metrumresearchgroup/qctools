@@ -13,7 +13,7 @@
 #' }
 #' 
 #' @export
-diffQC <- function(file) {
+diffQced <- function(file) {
   
   # Modify file to correct path format
   file_abs <- fs::path_abs(path = file)
