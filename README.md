@@ -7,6 +7,9 @@ With mrgqc, you are able to create and manage a QC log to track the QC history
 of all relevant files in your repository. While performing QC, `diffQced()` will
 show all the changes to the file since it had last been QCed.
 
+Note: This package is still in an experimental stage of development and backward 
+incompatible changes may be made. Please see NEWS.md for details on any changes and updates.
+
 ## Setup
 
 To start using mrgqc, run `logCreate()`. This will create the QC log in the form
@@ -46,4 +49,4 @@ in RStudio). renv will activate and find the project library.
 
 ## Getting help
 
-If you encounter a clear bug, please file an issue with a minimal reproducible example on [mrgqc](https://github.com/mrgqc/issues). 
+If you encounter a clear bug, please file an issue with a minimal reproducible example on [mrgqc](https://github.com/metrumresearchgroup/mrgqc/issues). 
