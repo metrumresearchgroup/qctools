@@ -1,0 +1,186 @@
+---
+title: "Getting Started with mrgqc"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{getting-started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+
+# Introduction
+
+This vignette takes the user through the basic functionality of the `mrgqc`
+package. The user will gain experience with:
+
+- creating and updating a QC log
+- generating simple visual diffs to use during QC
+
+# Setup
+
+## Load libraries
+
+```{r, message=FALSE}
+library(mrgqc)
+```
+
+## Create demo repo
+
+`demoRepo()` creates a temporary Git repo containing files with version history.
+This repo already contains a QC log and partially completed QC for demonstration
+purposes. The function returns the path to the repo.
+
+```{r}
+repo <- demoRepo()
+print(repo)
+```
+
+# Using the QC log
+
+If a repo does not contain a QC log, the first step would be to run `logCreate()`,
+which will generate an empty one. As mentioned above, the demo repo already 
+contains a QC log. The contents are shown below.
+
+```{r, echo=FALSE, message=FALSE}
+qclog <- utils::read.csv(file.path(repo, "QClog.csv"))
+qclog
+```
+
+A few helpful definitions:
+
+- `file`: Relative file path from the location of the QC log.
+- `commit`: Commit hash of last modification to the file.
+- `reviewer`: Reviewer of the file, given as the equivalent in R to `Sys.info()[["user"]]`.
+- `datetime`: Time of the assignment or acceptance.
+
+## logAssign
+
+When a file is ready for QC, it should be assigned in the QC log. This
+can be done using the `logAssign()` function, which will add a record to the QC
+log.
+
+Looking at the demo QC log, the first row is an example of a record that
+`logAssign()` will generate.
+
+```{r, echo=FALSE}
+qclog[1, ]
+```
+
+Notice that `commit` is set to `Initial-Assignment` since the file has only been
+added to the QC log and not actually QCed. Additionally, the reviewer is set to
+"anyone". 
+
+If we want to assign another file, such as `script/examp-yaml.yaml`, we can do 
+the following:
+
+```{r, eval=FALSE}
+logAssign("script/examp-yaml.yaml")
+```
+
+## logAccept
+
+After the reviewer completes their QC of a file, `logAccept()` should be used to
+create a record of this. The revision number at the time of QC is captured along
+with the username of the reviewer. 
+
+We can look at the QC history of `script/data-assembly.R` to demonstrate the
+differences between `logAssign()` and `logAccept()`.
+
+```{r, echo=FALSE}
+qclog[qclog$file == "script/data-assembly.R", ]
+```
+
+Notice that the row created by `logAccept()` updated the `commit` value to the
+commit hash of the most recent modification to the file when it was QCed. The 
+reviewer was updated from "anyone" to the actual user who did the QC.
+
+# logPending
+
+`logPending()` is a helpful function for identifying files in need of QC. 
+It will return all files that meet the following criteria:
+
+- assigned with `logAssign()` but no completed QC
+- modifications made since the last QC was done
+
+Running `logPending()` on the demo repo will result with the following output:
+
+```{r, echo=FALSE}
+curdir <- getwd()
+on.exit(setwd(curdir))
+setwd(repo)
+logPending()
+```
+
+Every row returned indicates a file in need of QC. Along with the relative 
+path of the file, the author and most recent reviewer of the file is 
+provided. If the reviewer is marked as "anyone" then the file has never 
+been QCed before.
+
+# Helpful tools for QCing
+
+When `logPending()` indicates a file is in need of QC but has previously had a 
+QC completed at an earlier revision, it is helpful to know what changed. This 
+can save QC efforts where only a minor change was made. 
+
+`diffQced()` helps with this as it generates a visual diff in the Viewer pane 
+in R studio. All deleted, added and modified lines of code are shown in the diff. 
+
+When `diffQced()` is supplied a file name, it uses the QC log to identify the
+revision number when the last QC was completed. The difference is then generated 
+using the version of the file at that revision number versus the current file.
+
+```{r eval=FALSE}
+diffQced("script/data-assembly.R")
+```
+
+```{r echo=FALSE, message=FALSE, results='asis'}
+curdir <- getwd()
+on.exit(setwd(curdir))
+setwd(repo)
+
+version_qc <- qclog[qclog$file == "script/data-assembly.R", "commit"][2]
+commit_file_qc <- paste0(version_qc, ":", "script/data-assembly.R")
+x <- processx::run("git", c("cat-file", "blob", commit_file_qc),stdout = "data-assembly-1.R")
+
+diffobj::diffFile(
+        "data-assembly-1.R",
+        "script/data-assembly.R",
+        color.mode = "rgb",
+        ignore.white.space = FALSE,
+        mode = "sidebyside",
+        tar.banner="QCed version",
+        cur.banner="Current",
+        format = "html",
+        style = list(html.output = "diff.w.style"),
+        interactive = F
+      )
+```
+
+# QC Summary
+
+`logSummary()` outputs all files in the QC log along with their QC status.
+
+The QC status of a given file could be one of the following:
+
+- `Assigned, needs QC`: file has been assigned in the QC log, but never has been QCed
+- `Modified, needs QC`: file has been QCed previously, but has had modifications since
+- `Fully QCed`: file has no QC needs currently. 
+
+To see an example of a QC summary document, run the following locally:
+
+```{r, eval=FALSE}
+logSummary()
+```
+
+```{r, echo=FALSE}
+curdir <- getwd()
+on.exit(setwd(curdir))
+setwd(repo)
+
+logSummary()
+```
+

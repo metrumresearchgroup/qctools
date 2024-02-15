@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.drone\.yml$
+^_pkgdown.yml$
 ^pkgr.yml$
 ^renv$
 ^renv\.lock$
