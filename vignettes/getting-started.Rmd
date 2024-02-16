@@ -84,7 +84,7 @@ logAssign("script/examp-yaml.yaml")
 ## logAccept
 
 After the reviewer completes their QC of a file, `logAccept()` should be used to
-create a record of this. The revision number at the time of QC is captured along
+create a record of this. The commit at the time of QC is captured along
 with the username of the reviewer. 
 
 We can look at the QC history of `script/data-assembly.R` to demonstrate the
@@ -127,11 +127,11 @@ QC completed at an earlier revision, it is helpful to know what changed. This
 can save QC efforts where only a minor change was made. 
 
 `diffQced()` helps with this as it generates a visual diff in the Viewer pane 
-in R studio. All deleted, added and modified lines of code are shown in the diff. 
+in RStudio. All deleted, added and modified lines of code are shown in the diff. 
 
 When `diffQced()` is supplied a file name, it uses the QC log to identify the
-revision number when the last QC was completed. The difference is then generated 
-using the version of the file at that revision number versus the current file.
+commit when the last QC was completed. The difference is then generated 
+using the version of the file at that commit versus the current file.
 
 ```{r eval=FALSE}
 diffQced("script/data-assembly.R")
