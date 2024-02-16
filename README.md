@@ -1,18 +1,19 @@
+# mrgqc
+
+_Note:_ This package is still in an experimental stage of development and backward incompatible changes may be made. Please see [`NEWS.md`](https://github.com/metrumresearchgroup/mrgqc/blob/main/NEWS.md) for details on any changes and updates.
+
 ## Overview
 
-mrgqc provides helpful tools for organizing and performing quality control (QC)
+`mrgqc` provides helpful tools for organizing and performing quality control (QC)
 tasks.
 
-With mrgqc, you are able to create and manage a QC log to track the QC history
+With `mrgqc`, you are able to create and manage a QC log to track the QC history
 of all relevant files in your repository. While performing QC, `diffQced()` will
 show all the changes to the file since it had last been QCed.
 
-Note: This package is still in an experimental stage of development and backward 
-incompatible changes may be made. Please see NEWS.md for details on any changes and updates.
-
 ## Setup
 
-To start using mrgqc, run `logCreate()`. This will create the QC log in the form
+To start using `mrgqc`, run `logCreate()`. This will create the QC log in the form
 of `QClog.csv`. 
 
 You can use `logAssign()` to add scripts needing QC to the QC log. After
@@ -49,4 +50,4 @@ in RStudio). renv will activate and find the project library.
 
 ## Getting help
 
-If you encounter a clear bug, please file an issue with a minimal reproducible example on [mrgqc](https://github.com/metrumresearchgroup/mrgqc/issues). 
+If you encounter a clear bug, please file an issue with a minimal reproducible example on [the `mrgqc/issues` page](https://github.com/metrumresearchgroup/mrgqc/issues). 

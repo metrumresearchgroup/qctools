@@ -4,3 +4,6 @@
 .Ruserdata
 renv/
 inst/doc
+.DS_Store
+.Rprofile
+docs/

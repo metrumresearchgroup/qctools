@@ -1,15 +1,15 @@
 #' Create Demo Git Repo
 #' 
 #' @description 
-#' Create a Github repo with files checked in and a QC log. The purpose of this 
+#' Create a git repo with files checked in and a QC log. The purpose of this 
 #' demo repo is for the user to become familiar with using review functions. 
 #' 
 #' The files checked into the repo are at various stages in terms of their QC
-#' needs. This function returns the path to the repo, so that the user can set
-#' their working directory to it. 
-#' 
-#' This demo repo is created in the `tmp` folder, so a new one will need to be
-#' generated whenever the user restarts R. 
+#' status. This function returns the path to the repo, so that the user can set
+#' their working directory to it.
+#'
+#' This demo repo is created under the R session `/tmp/` directory, so a new one
+#' will need to be generated whenever the user restarts R.
 #' 
 #' @examples 
 #' \dontrun{ 
