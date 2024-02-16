@@ -1,9 +1,8 @@
 #' Create a QC Log
 #' 
 #' @description 
-#' Creates an empty table in the directory specified with the name "QClog.csv".
-#' By default, the csv will be created in the directory where the R studio 
-#' project exists. 
+#' Creates an empty QC log file with the name "QClog.csv". This file will be
+#' created in the directory where the RStudio project file (`*.Rproj`) exists.
 #' 
 #' @examples 
 #' \dontrun{ 
