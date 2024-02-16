@@ -17,3 +17,9 @@ their working directory to it.
 This demo repo is created in the \code{tmp} folder, so a new one will need to be
 generated whenever the user restarts R.
 }
+\examples{
+\dontrun{ 
+demoRepo()
+}
+
+}

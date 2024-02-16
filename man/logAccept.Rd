@@ -2,14 +2,22 @@
 % Please edit documentation in R/logAccept.R
 \name{logAccept}
 \alias{logAccept}
-\title{Approve a File}
+\title{Approve a File in the QC log}
 \usage{
 logAccept(file)
 }
 \arguments{
-\item{file}{file to accept in the QC log}
+\item{file}{character file path (either the absolute or relative file path from the QC log)}
 }
 \description{
 Add a row to the QC log accepting a file, recording the commit hash of the
-commit where the file's last modification occurred.
+commit where the file's last modification occurred. The username of the
+reviewer will be included in the new row as well.
+}
+\examples{
+\dontrun{ 
+setwd(demoRepo)
+logAccept(file = "script/data-assembly.R")
+}
+
 }

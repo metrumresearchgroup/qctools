@@ -10,3 +10,10 @@ logSummary()
 Checks the files in the QC log and returns their QC status. Statuses include:
 "Assigned, needs QC", "Modified, needs QC", and "Fully QCed".
 }
+\examples{
+\dontrun{ 
+setwd(demoRepo)
+logSummary()
+}
+
+}

@@ -11,3 +11,10 @@ Checks the files in the QC log and returns those that are not up to date with
 QC, meaning files that have only been assigned or have had modifications since
 their last QC was completed.
 }
+\examples{
+\dontrun{ 
+setwd(demoRepo)
+logPending()
+}
+
+}
