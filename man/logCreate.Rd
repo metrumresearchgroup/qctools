@@ -11,3 +11,9 @@ Creates an empty table in the directory specified with the name "QClog.csv".
 By default, the csv will be created in the directory where the R studio
 project exists.
 }
+\examples{
+\dontrun{ 
+logCreate()
+}
+
+}

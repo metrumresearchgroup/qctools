@@ -15,12 +15,12 @@ incompatible changes may be made. Please see NEWS.md for details on any changes 
 To start using mrgqc, run `logCreate()`. This will create the QC log in the form
 of `QClog.csv`. 
 
-You can use `logAssign()` to add scripts needing to be QCed to the QC log. After
+You can use `logAssign()` to add scripts needing QC to the QC log. After
 completing QC, run `logAccept()`. This will add a row to the `QClog.csv` recording
-the current revision number to indicate when the file was QCed.
+the commit hash from the commit where the file was last modified.
 
 To identify which files need to be QCed, you can run `logPending()`. You can also
-run `logSummary()` to see the revision number for the most recent QC of each script.
+run `logSummary()` to see the QC status of all files in the `QClog.csv` file.
 
 ## Documentation
 Public documentation of all functions is hosted at [https://metrumresearchgroup.github.io/mrgqc/](https://metrumresearchgroup.github.io/mrgqc/)

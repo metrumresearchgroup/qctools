@@ -5,8 +5,10 @@
 #' By default, the csv will be created in the directory where the R studio 
 #' project exists. 
 #' 
-#' @usage 
+#' @examples 
+#' \dontrun{ 
 #' logCreate()
+#' }
 #' 
 #' @export
 logCreate <- function(){

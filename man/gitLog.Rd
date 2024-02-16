@@ -13,3 +13,10 @@ gitLog(file)
 Returns a list including the commit hash, last author and datetime of last
 commit for a specific file.
 }
+\examples{
+\dontrun{ 
+setwd(demoRepo)
+gitLog("script/examp-txt.txt")
+}
+
+}

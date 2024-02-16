@@ -9,15 +9,20 @@ logAssign(file, reviewer = "anyone")
 \arguments{
 \item{file}{character file path (either the absolute or relative file path from the QC log)}
 
-\item{reviewer}{specify a specific person to review the file}
+\item{reviewer}{specify a specific person to review the file (defaults to "anyone")}
 }
 \description{
-Appends a row to the QC log for the file given with the default reviewer
+Adds a row to the QC log for the file given with the default reviewer
 set to "anyone".
+}
+\details{
+The purpose of \code{logAssign()} is to indicate a file is ready for QC. This
+will allow the file to appear on the output of \code{logPending()}.
 }
 \examples{
 \dontrun{ 
-logAssign(file = tempfile(), reviewer = "anyone")
+setwd(demoRepo)
+logAssign(file = "script/examp-yaml.yaml", reviewer = "person1")
 }
 
 }
