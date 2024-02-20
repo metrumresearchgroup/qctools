@@ -25,14 +25,8 @@ diffQced <- function(file) {
   
   file_rel <- fs::path_rel(path = file_abs, start = logDir())
   
-  # Read in QC log
-  path_to_qc_log <- file.path(logDir(),"QClog.csv")
+  log <- logCheckRead()
   
-  if (!file.exists(path_to_qc_log)) {
-    stop("No QC log found", call. = FALSE)
-  }
-  
-  log <- logRead(path_to_qc_log)
   log_accepts <- log[log$commit != "Initial-Assignment", ]
   log_file <- log_accepts[log_accepts$file == file_rel, "commit"]
   

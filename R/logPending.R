@@ -14,13 +14,7 @@
 #' @export
 logPending <- function() {
   
-  path_to_qc_log <- file.path(logDir(),"QClog.csv")
-  
-  if (!file.exists(path_to_qc_log)) {
-    stop("No QC log found", call. = FALSE)
-  }
-  
-  log <- logRead(path_to_qc_log)
+  log <- logCheckRead()
   
   list_of_files <- unique(log$file)
   
