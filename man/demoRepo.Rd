@@ -5,15 +5,11 @@
 \alias{with_demoRepo}
 \title{Create Demo Git Repo}
 \usage{
-demoRepo(clean = TRUE, .local_envir = parent.frame())
+demoRepo()
 
-with_demoRepo(code, clean = TRUE)
+with_demoRepo(code)
 }
 \arguments{
-\item{clean}{Logical indicating if the temporary directory should be deleted after use}
-
-\item{.local_envir}{Environment to use}
-
 \item{code}{Executable code to run}
 }
 \description{
@@ -26,8 +22,4 @@ their working directory to it.
 
 This demo repo is created under the R session \verb{/tmp/} directory, so a new one
 will need to be generated whenever the user restarts R.
-}
-\examples{
-demoRepo()
-
 }
