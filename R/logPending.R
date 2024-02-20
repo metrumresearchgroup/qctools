@@ -6,10 +6,9 @@
 #' their last QC was completed. 
 #' 
 #' @examples 
-#' \dontrun{ 
-#' setwd(demoRepo)
-#' logPending()
-#' }
+#' with_demoRepo({
+#'   logPending()
+#' })
 #' 
 #' @export
 logPending <- function() {

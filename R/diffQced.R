@@ -8,10 +8,9 @@
 #' @param file file path from working directory
 #' 
 #' @examples 
-#' \dontrun{
-#' setwd(demoRepo)
-#' diffQced(file = "script/pk/load-spec.R")
-#' }
+#' with_demoRepo({
+#'   diffQced("script/data-assembly.R")
+#' })
 #' 
 #' @export
 diffQced <- function(file) {

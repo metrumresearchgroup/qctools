@@ -15,9 +15,8 @@ commit where the file's last modification occurred. The username of the
 reviewer will be included in the new row as well.
 }
 \examples{
-\dontrun{ 
-setwd(demoRepo)
-logAccept(file = "script/data-assembly.R")
-}
+with_demoRepo({
+  logAccept(file = "script/data-assembly.R")
+})
 
 }

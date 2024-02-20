@@ -5,10 +5,9 @@
 #' "Assigned, needs QC", "Modified, needs QC", and "Fully QCed".
 #' 
 #' @examples 
-#' \dontrun{ 
-#' setwd(demoRepo)
-#' logSummary()
-#' }
+#' with_demoRepo({
+#'   logSummary()
+#' })
 #' 
 #' @export
 logSummary <- function() {

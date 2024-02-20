@@ -2,9 +2,19 @@
 % Please edit documentation in R/demoRepo.R
 \name{demoRepo}
 \alias{demoRepo}
+\alias{with_demoRepo}
 \title{Create Demo Git Repo}
 \usage{
-demoRepo()
+demoRepo(clean = TRUE, .local_envir = parent.frame())
+
+with_demoRepo(code, clean = TRUE)
+}
+\arguments{
+\item{clean}{Logical indicating if the temporary directory should be deleted after use}
+
+\item{.local_envir}{Environment to use}
+
+\item{code}{Executable code to run}
 }
 \description{
 Create a git repo with files checked in and a QC log. The purpose of this
@@ -18,8 +28,6 @@ This demo repo is created under the R session \verb{/tmp/} directory, so a new o
 will need to be generated whenever the user restarts R.
 }
 \examples{
-\dontrun{ 
 demoRepo()
-}
 
 }

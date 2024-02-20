@@ -12,9 +12,8 @@ QC, meaning files that have only been assigned or have had modifications since
 their last QC was completed.
 }
 \examples{
-\dontrun{ 
-setwd(demoRepo)
-logPending()
-}
+with_demoRepo({
+  logPending()
+})
 
 }

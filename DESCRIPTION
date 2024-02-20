@@ -18,7 +18,8 @@ Imports:
     fs,
     processx,
     rprojroot,
-    diffobj
+    diffobj,
+    withr
 Suggests: 
     testthat (>= 3.0.0),
     knitr,

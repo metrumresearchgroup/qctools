@@ -8,10 +8,9 @@
 #' @param file character file path (either the absolute or relative file path from the QC log)
 #' 
 #' @examples 
-#' \dontrun{ 
-#' setwd(demoRepo)
-#' logAccept(file = "script/data-assembly.R")
-#' }
+#' with_demoRepo({
+#'   logAccept(file = "script/data-assembly.R")
+#' })
 #' 
 #' @export
 logAccept <- function(file){

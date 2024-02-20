@@ -5,9 +5,10 @@
 #' created in the directory where the RStudio project file (`*.Rproj`) exists.
 #' 
 #' @examples 
-#' \dontrun{ 
-#' logCreate()
-#' }
+#' with_demoRepo({
+#'   file.remove("QClog.csv")
+#'   logCreate()
+#' })
 #' 
 #' @export
 logCreate <- function(){

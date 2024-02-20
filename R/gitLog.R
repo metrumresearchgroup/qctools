@@ -7,10 +7,9 @@
 #' @param file character file path (either the absolute or relative file path from the QC log)
 #' 
 #' @examples 
-#' \dontrun{ 
-#' setwd(demoRepo)
-#' gitLog("script/examp-txt.txt")
-#' }
+#' with_demoRepo({
+#'   gitLog("script/examp-txt.txt")
+#' })
 #' 
 #' @export
 gitLog <- function(file) {

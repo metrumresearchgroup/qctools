@@ -12,10 +12,11 @@
 #' @param reviewer specify a specific person to review the file (defaults to "anyone")
 #' 
 #' @examples 
-#' \dontrun{ 
-#' setwd(demoRepo)
-#' logAssign(file = "script/examp-yaml.yaml", reviewer = "person1")
-#' }
+#' with_demoRepo({
+#'   logAssign(
+#'     file = "script/examp-yaml.yaml", 
+#'     reviewer = "person1")
+#' })
 #' 
 #' @export
 logAssign <- function(file,

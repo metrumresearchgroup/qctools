@@ -15,9 +15,8 @@ The output will appear in the viewer and only rows where there have been
 additions, deletions or modifications in the file will be shown.
 }
 \examples{
-\dontrun{
-setwd(demoRepo)
-diffQced(file = "script/pk/load-spec.R")
-}
+with_demoRepo({
+  diffQced("script/data-assembly.R")
+})
 
 }

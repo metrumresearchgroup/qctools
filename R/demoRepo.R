@@ -11,27 +11,26 @@
 #' This demo repo is created under the R session `/tmp/` directory, so a new one
 #' will need to be generated whenever the user restarts R.
 #' 
+#' @param clean Logical indicating if the temporary directory should be deleted after use
+#' @param .local_envir Environment to use
+#' 
 #' @examples 
-#' \dontrun{ 
 #' demoRepo()
-#' }
 #'
 #' @export
-demoRepo <- function() {
+demoRepo <- function(clean = TRUE, .local_envir = parent.frame()) {
   
-  curDir <- getwd()
-  on.exit(setwd(curDir))
-  
-  repoInitPath <- fs::path_temp("mrgqc-demo-repo")
-  
-  if (fs::dir_exists(repoInitPath)) {
-    fs::dir_delete(repoInitPath)
-  }
+  repoInitPath <- withr::local_tempdir(
+    "mrgqc-demo-",
+    clean = clean, 
+    .local_envir = parent.frame()
+    )
   
   # Create svn repo at specified locations
   system(paste0("git init ", repoInitPath, " --quiet"))
   
-  setwd(repoInitPath)
+  withr::local_dir(repoInitPath)
+
   writeLines("Version: 1.0", con = "temp.Rproj")
   
   # Add scripts to the repo
@@ -127,7 +126,7 @@ demoRepo <- function() {
 
   writeLines(
     c("The following tasks are suggested to gain familiarity with the review package:",
-      '- run `diffQCed()` on "script/pk/load-spec.R" and "script/data-assembly.R"',
+      '- run `diffQced()` on "script/pk/load-spec.R" and "script/data-assembly.R"',
       '- run `renderQCSummary()`',
       '- use `logAssign()` to add "script/examp-txt.txt" to the QC log',
       '- run `logPending()` to see what scripts are in need of QC',
@@ -136,4 +135,13 @@ demoRepo <- function() {
   )
   
   repoInitPath
+}
+
+#' @rdname demoRepo
+#' 
+#' @param code Executable code to run 
+#' @export
+with_demoRepo <- function(code, clean = TRUE) {
+  repo <- demoRepo(clean = clean)
+  withr::with_dir(repo, code)
 }
