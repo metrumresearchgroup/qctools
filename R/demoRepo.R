@@ -26,7 +26,6 @@ demoRepo <- function(clean = TRUE, .local_envir = parent.frame()) {
     .local_envir = parent.frame()
     )
   
-  # Create svn repo at specified locations
   system(paste0("git init ", repoInitPath, " --quiet"))
   
   withr::local_dir(repoInitPath)
@@ -75,7 +74,6 @@ demoRepo <- function(clean = TRUE, .local_envir = parent.frame()) {
   # Create QC log
   logCreate()
   
-  # Check everything into SVN
   system("git add *")
   system("git commit -m 'initial commit' --quiet")
   
