@@ -22,7 +22,7 @@ demoRepo <- function() {
   curDir <- getwd()
   on.exit(setwd(curDir))
   
-  repoInitPath <- fs::path_temp()
+  repoInitPath <- fs::path_temp("mrgqc-demo-repo")
   
   if (fs::dir_exists(repoInitPath)) {
     fs::dir_delete(repoInitPath)
