@@ -20,7 +20,7 @@ logAccept <- function(file){
   logEdit(
     .file = file,
     .reviewer = Sys.info()[["user"]],
-    .commit = git_commit$commit
+    .commit = git_commit$last_commit
   )
   
 }

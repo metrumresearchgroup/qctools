@@ -5,11 +5,13 @@
 \alias{with_demoRepo}
 \title{Create Demo Git Repo}
 \usage{
-demoRepo()
+demoRepo(clean = TRUE)
 
-with_demoRepo(code)
+with_demoRepo(code, clean = TRUE)
 }
 \arguments{
+\item{clean}{Logical indicating if the temporary directory should be deleted after use}
+
 \item{code}{Executable code to run}
 }
 \description{

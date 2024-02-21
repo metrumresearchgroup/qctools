@@ -1,10 +1,10 @@
 #' Get commit info of last modified version of a file
 #' 
 #' @description 
-#' Returns a list including the commit hash, last author and datetime of last 
-#' commit for a specific file. 
+#' Returns a data.frame including the commit hash, last author and datetime of last 
+#' commit for all input files. 
 #' 
-#' @param file character file path (either the absolute or relative file path from the QC log)
+#' @param list_of_files vector of file paths (can also pass only 1 file)
 #' 
 #' @examples 
 #' with_demoRepo({
@@ -12,24 +12,39 @@
 #' })
 #' 
 #' @export
-gitLog <- function(file) {
+gitLog <- function(list_of_files) {
   
-  file_abs <- fs::path_abs(path = file)
+  outDF <- data.frame()
   
-  if (!file.exists(file_abs)) {
-    stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
+  for (file.i in list_of_files) {
+    
+    file_abs <- fs::path_abs(path = file.i)
+    
+    if (!file.exists(file_abs)) {
+      stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
+    }
+    
+    file_rel <- fs::path_rel(path = file_abs, start = logDir())
+    
+    p <- processx::run("git", c("log", "--format=%H%x09%an%x09%aI%x09", "-n1", "--", file_rel), wd = logDir())
+    
+    if (length(length(p$stdout)) != 1) {
+      stop(paste0("Could not find git history of '", file_abs, "'"), call. = FALSE)
+    }
+    
+    p_out <- unlist(strsplit(p$stdout, split = "\t"))
+    
+    outDF <-
+      rbind(
+        outDF,
+        data.frame(
+          file = file_rel,
+          last_commit = p_out[1],
+          last_author = p_out[2],
+          last_datetime = p_out[3]
+        )
+      )
   }
   
-  file_rel <- fs::path_rel(path = file_abs, start = logDir())
-  
-  outList <- list()
-  
-  p <- processx::run("git", c("log", "--format=%H%x09%an%x09%aI%x09", "-n1", "--", file_rel))
-  p_out <- unlist(strsplit(p$stdout, split = "\t"))
-  
-  outList[["commit"]] <- p_out[1]
-  outList[["author"]] <- p_out[2]
-  outList[["datetime"]] <- p_out[3]
-  
-  return(outList)
+  return(outDF)
 }

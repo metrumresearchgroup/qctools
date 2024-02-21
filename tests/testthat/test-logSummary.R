@@ -15,9 +15,9 @@ test_that("logPending accepts files in the QC log and returns expected errors", 
     file3 <- "script/combine-da.R"
     file4 <- "script/examp-txt.txt"
     
-    expect_equal(summary[summary$file == file1, "status"], "Modified, needs QC")
-    expect_equal(summary[summary$file == file2, "status"], "Modified, needs QC")
+    expect_equal(summary[summary$file == file1, "status"], "Modified - needs QC")
+    expect_equal(summary[summary$file == file2, "status"], "Modified - needs QC")
     expect_equal(summary[summary$file == file3, "status"], "Fully QCed")
-    expect_equal(summary[summary$file == file4, "status"], "Assigned, needs QC")
+    expect_equal(summary[summary$file == file4, "status"], "Assigned - needs QC")
   })
 })

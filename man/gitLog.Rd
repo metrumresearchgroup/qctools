@@ -4,14 +4,14 @@
 \alias{gitLog}
 \title{Get commit info of last modified version of a file}
 \usage{
-gitLog(file)
+gitLog(list_of_files)
 }
 \arguments{
-\item{file}{character file path (either the absolute or relative file path from the QC log)}
+\item{list_of_files}{vector of file paths (can also pass only 1 file)}
 }
 \description{
-Returns a list including the commit hash, last author and datetime of last
-commit for a specific file.
+Returns a data.frame including the commit hash, last author and datetime of last
+commit for all input files.
 }
 \examples{
 with_demoRepo({

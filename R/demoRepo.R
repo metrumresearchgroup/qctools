@@ -11,14 +11,16 @@
 #' This demo repo is created under the R session `/tmp/` directory, so a new one
 #' will need to be generated whenever the user restarts R.
 #' 
-#' @usage demoRepo()
+#' @param clean Logical indicating if the temporary directory should be deleted after use
+#' 
+#' @usage demoRepo(clean = TRUE)
 #'
 #' @export
-demoRepo <- function() {
+demoRepo <- function(clean = TRUE) {
   
   repoInitPath <- withr::local_tempdir(
     "mrgqc-demo-",
-    clean = TRUE, 
+    clean = clean, 
     .local_envir = parent.frame()
     )
   
@@ -135,7 +137,7 @@ demoRepo <- function() {
 #' 
 #' @param code Executable code to run 
 #' @export
-with_demoRepo <- function(code) {
-  repo <- demoRepo()
+with_demoRepo <- function(code, clean = TRUE) {
+  repo <- demoRepo(clean)
   withr::with_dir(repo, code)
 }

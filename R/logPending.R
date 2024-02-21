@@ -17,34 +17,12 @@ logPending <- function() {
   
   list_of_files <- unique(log$file)
   
-  pending <- 
-    data.frame(
-      file=character(0),
-      author=character(0),
-      reviewer = character(0),
-      datetime=character(0)
-    )
+  log_unique <- logUniquebyFile(list_of_files)
   
-  for (file.i in list_of_files) {
-    
-    file_info.i <- gitLog(file.i)
-    file_log.i <- log[log[["file"]] == file.i, ]
-    
-    if (file_log.i$commit[nrow(file_log.i)] == file_info.i$commit) {
-      next
-    }
-    
-    pending.i <-
-      data.frame(
-        file=file.i,
-        author=file_info.i$author,
-        reviewer = file_log.i$reviewer[nrow(file_log.i)],
-        datetime = as.Date(file_info.i$datetime)
-      )
-    
-    pending <- rbind(pending, pending.i)
-  }
+  # Combine gitLog output for files with log_unique
+  gitFiles <- gitLog(list_of_files = list_of_files)
+  combineLogGit <- merge(log_unique, gitFiles)
+  filterLogGit <- combineLogGit[combineLogGit$commit != combineLogGit$last_commit,]
   
-  pending
-  
+  filterLogGit[c("file", "last_author", "reviewer", "datetime")]
 }
