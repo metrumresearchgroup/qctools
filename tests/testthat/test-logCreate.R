@@ -15,3 +15,16 @@ test_that("logCreate generates a QC log csv file with expected columns", {
     expect_error(logCreate())
   })
 })
+
+test_that("logCreate works when multiple Rproj files present", {
+  
+  with_demoRepo({
+    fs::dir_create("subdir")
+    setwd("subdir")
+    writeLines("Version: 1.0", con = "temp2.Rproj")
+    logCreate()
+    
+    expect_true(file.exists("QClog.csv"))
+  })
+  
+})

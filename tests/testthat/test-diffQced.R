@@ -20,3 +20,38 @@ test_that("diffQced returns specified messages if no differences", {
   })
 })
 
+test_that("diffQced works with subdirectories", {
+  
+  with_demoRepo({
+    
+    # Create subdirectory
+    fs::dir_create("subdir")
+    setwd("subdir")
+    
+    # Add QC log & Rproj file
+    writeLines("Version: 1.0", con = "temp2.Rproj")
+    logCreate()
+    
+    # Create script directory
+    fs::dir_create("script")
+    writeLines("Example text", con = "script/subdir2.txt")
+    
+    # Check in new files to git
+    processx::run("git", c("add", "."))
+    processx::run("git", c("commit", "-m", "'add subdir'", "--quiet"))
+    logAccept("script/subdir2.txt")
+    
+    writeLines("New text", con = "script/subdir2.txt")
+    
+    processx::run("git", c("add", "."))
+    processx::run("git", c("commit", "-m", "'add subdir'", "--quiet"))
+    
+    # Check diff is possible while inside subdirectory
+    diff_sub <- diffQced("script/subdir2.txt")
+    
+    expect_true(diff_sub@target == "Example text")
+    expect_true(diff_sub@current == "New text")
+  })
+  
+  
+})

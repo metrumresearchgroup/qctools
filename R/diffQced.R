@@ -22,8 +22,7 @@ diffQced <- function(file) {
     stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
   }
   
-  p <- processx::run("git", c("rev-parse", "--show-toplevel"))
-  file_rel <- fs::path_rel(path = file_abs, start = strsplit(p$stdout, "\n")[[1]])
+  file_rel <- fs::path_rel(path = file_abs, start = logDir())
   
   log <- logCheckRead()
   
@@ -34,21 +33,27 @@ diffQced <- function(file) {
     stop(paste0(file, " not in QC log"), call. = FALSE)
   }
   
-  version_new <- gitLog(file_rel)[["last_commit"]]
+  version_new <- gitLog(file)[["last_commit"]]
   version_qc <- log_file[length(log_file)]
   
   if (version_new == version_qc) {
     stop("File is up to date with QC", call. = FALSE)
   }
   
-  commit_file_new <- paste0(version_new, ":", file_rel)
-  commit_file_qc <- paste0(version_qc, ":", file_rel)
+  # Prepend "./" so that 'git cat-file' interprets the path relative to the
+  # working directory rather than the top-level directory of the Git repo.
+  commit_file_new <- paste0(version_new, ":./", file_rel)
+  commit_file_qc <- paste0(version_qc, ":./", file_rel)
   
   tempfile_new <- file.path(tempdir(), paste0("new-", basename(file_rel)))
   tempfile_qc <- file.path(tempdir(), paste0("qced-", basename(file_rel)))
   
-  processx::run("git", c("cat-file", "blob", commit_file_new),stdout = tempfile_new)
-  processx::run("git", c("cat-file", "blob", commit_file_qc),stdout = tempfile_qc)
+  processx::run(
+    "git", c("cat-file", "blob", commit_file_new),
+    stdout = tempfile_new, wd = logDir())
+  processx::run(
+    "git", c("cat-file", "blob", commit_file_qc),
+    stdout = tempfile_qc, wd = logDir())
   
   diffobj::diffFile(
     target = tempfile_qc,
