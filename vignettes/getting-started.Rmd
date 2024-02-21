@@ -109,10 +109,9 @@ It will return all files that meet the following criteria:
 Running `logPending()` on the demo repo will result with the following output:
 
 ```{r, echo=FALSE}
-curdir <- getwd()
-on.exit(setwd(curdir))
-setwd(repo)
-logPending()
+with_demoRepo(
+  logPending()
+)
 ```
 
 Every row returned indicates a file in need of QC. Along with the relative 
