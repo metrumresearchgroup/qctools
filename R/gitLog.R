@@ -26,7 +26,7 @@ gitLog <- function(list_of_files) {
     
     file_rel <- fs::path_rel(path = file_abs, start = logDir())
     
-    p <- processx::run("git", c("log", "--format=%H%x09%an%x09%aI%x09", "-n1", "--", file_rel), wd = logDir())
+    p <- processx::run("git", c("--literal-pathspecs", "log", "--format=%H%x09%an%x09%aI%x09", "-n1", "--", file_rel), wd = logDir())
     
     if (length(length(p$stdout)) != 1) {
       stop(paste0("Could not find git history of '", file_abs, "'"), call. = FALSE)

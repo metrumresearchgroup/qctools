@@ -24,7 +24,7 @@ demoRepo <- function(clean = TRUE) {
     .local_envir = parent.frame()
     )
   
-  system(paste0("git init ", repoInitPath, " --quiet"))
+  processx::run("git", c("init", repoInitPath, "--quiet"))
   
   withr::local_dir(repoInitPath)
 
@@ -72,25 +72,25 @@ demoRepo <- function(clean = TRUE) {
   # Create QC log
   logCreate()
   
-  system("git add *")
-  system("git commit -m 'initial commit' --quiet")
-  
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'initial commit'", "--quiet"))
+
   # Assign and accept scripts in QC log
   logAssign("script/data-assembly.R")
   logAssign("script/pk/load-spec.R")
   logAssign("script/combine-da.R")
   logAssign("script/examp-txt.txt")
   
-  system("git add *")
-  system("git commit -m 'logAssign scripts ready for QC' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'logAssign scripts ready for QC'", "--quiet"))
   
   logAccept("script/data-assembly.R")
   logAccept("script/pk/load-spec.R")
   logAccept("script/combine-da.R")
   
   # Check in updates to QC log
-  system("git add *")
-  system("git commit -m 'logAccept scripts ready for QC' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'logAccept scripts ready for QC'", "--quiet"))
   
   # Make edits to QCed file
   writeLines(
@@ -98,8 +98,8 @@ demoRepo <- function(clean = TRUE) {
     "script/pk/load-spec.R"
   )
   
-  system("git add *")
-  system("git commit -m 'modify load-spec script' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify load-spec script'", "--quiet"))
 
   writeLines(
     c(
@@ -117,8 +117,8 @@ demoRepo <- function(clean = TRUE) {
     "script/data-assembly.R"
   )
   
-  system("git add *")
-  system("git commit -m 'modify data-assembly' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify data-assembly'", "--quiet"))
 
   writeLines(
     c("The following tasks are suggested to gain familiarity with the review package:",
