@@ -22,7 +22,8 @@ diffQced <- function(file) {
     stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
   }
   
-  file_rel <- fs::path_rel(path = file_abs, start = logDir())
+  p <- processx::run("git", c("rev-parse", "--show-toplevel"))
+  file_rel <- fs::path_rel(path = file_abs, start = strsplit(p$stdout, "\n")[[1]])
   
   log <- logCheckRead()
   
@@ -46,8 +47,8 @@ diffQced <- function(file) {
   tempfile_new <- file.path(tempdir(), paste0("new-", basename(file_rel)))
   tempfile_qc <- file.path(tempdir(), paste0("qced-", basename(file_rel)))
   
-  processx::run("git", c("cat-file", "blob", commit_file_new),stdout = tempfile_new, wd = logDir())
-  processx::run("git", c("cat-file", "blob", commit_file_qc),stdout = tempfile_qc, wd = logDir())
+  processx::run("git", c("cat-file", "blob", commit_file_new),stdout = tempfile_new)
+  processx::run("git", c("cat-file", "blob", commit_file_qc),stdout = tempfile_qc)
   
   diffobj::diffFile(
     target = tempfile_qc,
