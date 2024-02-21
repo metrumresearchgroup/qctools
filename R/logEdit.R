@@ -36,7 +36,7 @@ logEdit <- function(.file,
       file = file_rel,
       commit = .commit,
       reviewer = .reviewer,
-      datetime = paste(as.character(as.POSIXlt(Sys.time(), "GMT")), "GMT")
+      datetime = strftime(Sys.time(), tz = "GMT", usetz = TRUE)
     )
   
   logWrite(
