@@ -11,27 +11,23 @@
 #' This demo repo is created under the R session `/tmp/` directory, so a new one
 #' will need to be generated whenever the user restarts R.
 #' 
-#' @examples 
-#' \dontrun{ 
-#' demoRepo()
-#' }
+#' @param clean Logical indicating if the temporary directory should be deleted after use
+#' 
+#' @usage demoRepo(clean = TRUE)
 #'
 #' @export
-demoRepo <- function() {
+demoRepo <- function(clean = TRUE) {
   
-  curDir <- getwd()
-  on.exit(setwd(curDir))
+  repoInitPath <- withr::local_tempdir(
+    "mrgqc-demo-",
+    clean = clean, 
+    .local_envir = parent.frame()
+    )
   
-  repoInitPath <- fs::path_temp()
+  processx::run("git", c("init", repoInitPath, "--quiet"))
   
-  if (fs::dir_exists(repoInitPath)) {
-    fs::dir_delete(repoInitPath)
-  }
-  
-  # Create svn repo at specified locations
-  system(paste0("git init ", repoInitPath, " --quiet"))
-  
-  setwd(repoInitPath)
+  withr::local_dir(repoInitPath)
+
   writeLines("Version: 1.0", con = "temp.Rproj")
   
   # Add scripts to the repo
@@ -76,26 +72,25 @@ demoRepo <- function() {
   # Create QC log
   logCreate()
   
-  # Check everything into SVN
-  system("git add *")
-  system("git commit -m 'initial commit' --quiet")
-  
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'initial commit'", "--quiet"))
+
   # Assign and accept scripts in QC log
   logAssign("script/data-assembly.R")
   logAssign("script/pk/load-spec.R")
   logAssign("script/combine-da.R")
   logAssign("script/examp-txt.txt")
   
-  system("git add *")
-  system("git commit -m 'logAssign scripts ready for QC' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'logAssign scripts ready for QC'", "--quiet"))
   
   logAccept("script/data-assembly.R")
   logAccept("script/pk/load-spec.R")
   logAccept("script/combine-da.R")
   
   # Check in updates to QC log
-  system("git add *")
-  system("git commit -m 'logAccept scripts ready for QC' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'logAccept scripts ready for QC'", "--quiet"))
   
   # Make edits to QCed file
   writeLines(
@@ -103,8 +98,8 @@ demoRepo <- function() {
     "script/pk/load-spec.R"
   )
   
-  system("git add *")
-  system("git commit -m 'modify load-spec script' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify load-spec script'", "--quiet"))
 
   writeLines(
     c(
@@ -122,12 +117,12 @@ demoRepo <- function() {
     "script/data-assembly.R"
   )
   
-  system("git add *")
-  system("git commit -m 'modify data-assembly' --quiet")
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify data-assembly'", "--quiet"))
 
   writeLines(
     c("The following tasks are suggested to gain familiarity with the review package:",
-      '- run `diffQCed()` on "script/pk/load-spec.R" and "script/data-assembly.R"',
+      '- run `diffQced()` on "script/pk/load-spec.R" and "script/data-assembly.R"',
       '- run `renderQCSummary()`',
       '- use `logAssign()` to add "script/examp-txt.txt" to the QC log',
       '- run `logPending()` to see what scripts are in need of QC',
@@ -136,4 +131,13 @@ demoRepo <- function() {
   )
   
   repoInitPath
+}
+
+#' @rdname demoRepo
+#' 
+#' @param code Executable code to run 
+#' @export
+with_demoRepo <- function(code, clean = TRUE) {
+  repo <- demoRepo(clean)
+  withr::with_dir(repo, code)
 }

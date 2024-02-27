@@ -2,9 +2,17 @@
 % Please edit documentation in R/demoRepo.R
 \name{demoRepo}
 \alias{demoRepo}
+\alias{with_demoRepo}
 \title{Create Demo Git Repo}
 \usage{
-demoRepo()
+demoRepo(clean = TRUE)
+
+with_demoRepo(code, clean = TRUE)
+}
+\arguments{
+\item{clean}{Logical indicating if the temporary directory should be deleted after use}
+
+\item{code}{Executable code to run}
 }
 \description{
 Create a git repo with files checked in and a QC log. The purpose of this
@@ -16,10 +24,4 @@ their working directory to it.
 
 This demo repo is created under the R session \verb{/tmp/} directory, so a new one
 will need to be generated whenever the user restarts R.
-}
-\examples{
-\dontrun{ 
-demoRepo()
-}
-
 }

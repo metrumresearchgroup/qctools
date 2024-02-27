@@ -5,57 +5,26 @@
 #' "Assigned, needs QC", "Modified, needs QC", and "Fully QCed".
 #' 
 #' @examples 
-#' \dontrun{ 
-#' setwd(demoRepo)
-#' logSummary()
-#' }
+#' with_demoRepo({
+#'   logSummary()
+#' })
 #' 
 #' @export
 logSummary <- function() {
   
-  path_to_qc_log <- file.path(logDir(),"QClog.csv")
-  
-  if (!file.exists(path_to_qc_log)) {
-    stop("No QC log found", call. = FALSE)
-  }
-  
-  log <- logRead(path_to_qc_log)
+  log <- logCheckRead()
   
   list_of_files <- unique(log$file)
   
-  summary <- 
-    data.frame(
-      file=character(0),
-      status=character(0)
-    )
+  log_unique <- logUniquebyFile(list_of_files)
   
-  for (file.i in list_of_files) {
-    
-    file_info.i <- gitLog(file.i)
-    file_log.i <- log[log[["file"]] == file.i, ]
-    
-    if (nrow(file_log.i) == 1 & all(file_log.i$commit == "Initial-Assignment")) {
-      status.i <- "Assigned, needs QC"
-    } else if (file_log.i$commit[nrow(file_log.i)] == file_info.i$commit) {
-      status.i <- "Fully QCed"
-    } else {
-      status.i <- "Modified, needs QC"
-    }
-    
-    
-    
-    
-    summary.i <-
-      data.frame(
-        file=file.i,
-        status=status.i
-      )
-    
-    rm(status.i)
-    
-    summary <- rbind(summary, summary.i)
-  }
+  gitFiles <- gitLog(list_of_files = list_of_files)
   
-  summary
+  combineLogGit <- merge(log_unique, gitFiles)
   
+  combineLogGit$status <- ifelse(
+    combineLogGit$commit == "Initial-Assignment", "Assigned - needs QC", 
+    ifelse(combineLogGit$commit != combineLogGit$last_commit, "Modified - needs QC", "Fully QCed"))
+  
+  combineLogGit[c("file", "status")]
 }

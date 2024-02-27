@@ -8,10 +8,9 @@
 #' @param file file path from working directory
 #' 
 #' @examples 
-#' \dontrun{
-#' setwd(demoRepo)
-#' diffQced(file = "script/pk/load-spec.R")
-#' }
+#' with_demoRepo({
+#'   diffQced("script/data-assembly.R")
+#' })
 #' 
 #' @export
 diffQced <- function(file) {
@@ -25,14 +24,8 @@ diffQced <- function(file) {
   
   file_rel <- fs::path_rel(path = file_abs, start = logDir())
   
-  # Read in QC log
-  path_to_qc_log <- file.path(logDir(),"QClog.csv")
+  log <- logCheckRead()
   
-  if (!file.exists(path_to_qc_log)) {
-    stop("No QC log found", call. = FALSE)
-  }
-  
-  log <- logRead(path_to_qc_log)
   log_accepts <- log[log$commit != "Initial-Assignment", ]
   log_file <- log_accepts[log_accepts$file == file_rel, "commit"]
   
@@ -40,21 +33,27 @@ diffQced <- function(file) {
     stop(paste0(file, " not in QC log"), call. = FALSE)
   }
   
-  version_new <- gitLog(file_rel)[["commit"]]
+  version_new <- gitLog(file)[["last_commit"]]
   version_qc <- log_file[length(log_file)]
   
   if (version_new == version_qc) {
     stop("File is up to date with QC", call. = FALSE)
   }
   
-  commit_file_new <- paste0(version_new, ":", file_rel)
-  commit_file_qc <- paste0(version_qc, ":", file_rel)
+  # Prepend "./" so that 'git cat-file' interprets the path relative to the
+  # working directory rather than the top-level directory of the Git repo.
+  commit_file_new <- paste0(version_new, ":./", file_rel)
+  commit_file_qc <- paste0(version_qc, ":./", file_rel)
   
   tempfile_new <- file.path(tempdir(), paste0("new-", basename(file_rel)))
   tempfile_qc <- file.path(tempdir(), paste0("qced-", basename(file_rel)))
   
-  processx::run("git", c("cat-file", "blob", commit_file_new),stdout = tempfile_new)
-  processx::run("git", c("cat-file", "blob", commit_file_qc),stdout = tempfile_qc)
+  processx::run(
+    "git", c("cat-file", "blob", commit_file_new),
+    stdout = tempfile_new, wd = logDir())
+  processx::run(
+    "git", c("cat-file", "blob", commit_file_qc),
+    stdout = tempfile_qc, wd = logDir())
   
   diffobj::diffFile(
     target = tempfile_qc,

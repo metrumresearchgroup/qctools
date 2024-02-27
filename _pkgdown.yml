@@ -24,6 +24,7 @@ reference:
     contents:
     - diffQced
     - demoRepo
+    - with_demoRepo
   - title: Git Helpers
     desc: Easily access information about Git repos
     contents:

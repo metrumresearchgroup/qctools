@@ -3,13 +3,7 @@ logEdit <- function(.file,
                     .reviewer,
                     .commit) {
   
-  path_to_qc_log <- file.path(logDir(),"QClog.csv")
-  
-  if (!file.exists(path_to_qc_log)) {
-    stop("No QC log found", call. = FALSE)
-  }
-  
-  log <- logRead(path_to_qc_log)
+  log <- logCheckRead()
   
   file_abs <- fs::path_abs(path = .file)
   
@@ -42,11 +36,11 @@ logEdit <- function(.file,
       file = file_rel,
       commit = .commit,
       reviewer = .reviewer,
-      datetime = paste(as.character(as.POSIXlt(Sys.time(), "GMT")), "GMT")
+      datetime = strftime(Sys.time(), tz = "GMT", usetz = TRUE)
     )
   
   logWrite(
     rbind(log, new_row),
-    file= path_to_qc_log
+    file= file.path(logDir(),"QClog.csv")
   )
 }
