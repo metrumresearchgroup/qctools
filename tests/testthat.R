@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(mrgqc)
+library(qctools)
 
-test_check("mrgqc")
+test_check("qctools")

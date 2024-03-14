@@ -1,4 +1,4 @@
-# mrgqc development
+# qctools development
 
 ## New features and changes
 
