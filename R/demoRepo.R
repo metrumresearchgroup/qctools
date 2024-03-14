@@ -19,7 +19,7 @@
 demoRepo <- function(clean = TRUE) {
   
   repoInitPath <- withr::local_tempdir(
-    "mrgqc-demo-",
+    "qctools-demo-",
     clean = clean, 
     .local_envir = parent.frame()
     )

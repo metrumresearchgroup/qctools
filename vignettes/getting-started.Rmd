@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with mrgqc"
+title: "Getting Started with qctools"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{getting-started}
@@ -14,7 +14,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 
 # Introduction
 
-This vignette takes the user through the basic functionality of the `mrgqc`
+This vignette takes the user through the basic functionality of the `qctools`
 package. The user will gain experience with:
 
 - creating and updating a QC log
@@ -25,7 +25,7 @@ package. The user will gain experience with:
 ## Load libraries
 
 ```{r, message=FALSE}
-library(mrgqc)
+library(qctools)
 ```
 
 ## Create demo repo

@@ -1,19 +1,19 @@
-# mrgqc
+# qctools
 
-_Note:_ This package is still in an experimental stage of development and backward incompatible changes may be made. Please see [`NEWS.md`](https://github.com/metrumresearchgroup/mrgqc/blob/main/NEWS.md) for details on any changes and updates.
+_Note:_ This package is still in an experimental stage of development and backward incompatible changes may be made. Please see [`NEWS.md`](https://github.com/metrumresearchgroup/qctools/blob/main/NEWS.md) for details on any changes and updates.
 
 ## Overview
 
-`mrgqc` provides helpful tools for organizing and performing quality control (QC)
+`qctools` provides helpful tools for organizing and performing quality control (QC)
 tasks.
 
-With `mrgqc`, you are able to create and manage a QC log to track the QC history
+With `qctools`, you are able to create and manage a QC log to track the QC history
 of all relevant files in your repository. While performing QC, `diffQced()` will
 show all the changes to the file since it had last been QCed.
 
 ## Setup
 
-To start using `mrgqc`, run `logCreate()`. This will create the QC log in the form
+To start using `qctools`, run `logCreate()`. This will create the QC log in the form
 of `QClog.csv`. 
 
 You can use `logAssign()` to add scripts needing QC to the QC log. After
@@ -24,11 +24,11 @@ To identify which files need to be QCed, you can run `logPending()`. You can als
 run `logSummary()` to see the QC status of all files in the `QClog.csv` file.
 
 ## Documentation
-Public documentation of all functions is hosted at [https://metrumresearchgroup.github.io/mrgqc/](https://metrumresearchgroup.github.io/mrgqc/)
+Public documentation of all functions is hosted at [https://metrumresearchgroup.github.io/qctools/](https://metrumresearchgroup.github.io/qctools/)
 
 ## Development
 
-`mrgqc` uses [pkgr](https://github.com/metrumresearchgroup/pkgr) to manage
+`qctools` uses [pkgr](https://github.com/metrumresearchgroup/pkgr) to manage
 development dependencies and [renv](https://rstudio.github.io/renv/) to
 provide isolation. To replicate this environment,
 
@@ -50,4 +50,4 @@ in RStudio). renv will activate and find the project library.
 
 ## Getting help
 
-If you encounter a clear bug, please file an issue with a minimal reproducible example on [the `mrgqc/issues` page](https://github.com/metrumresearchgroup/mrgqc/issues). 
+If you encounter a clear bug, please file an issue with a minimal reproducible example on [the `qctools/issues` page](https://github.com/metrumresearchgroup/qctools/issues). 
