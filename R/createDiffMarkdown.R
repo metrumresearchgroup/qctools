@@ -7,9 +7,13 @@ createDiffMarkdown <- function(dfpaths, outputFileName = tempfile("diff-figure",
     paste(
       "---",
       "title: \"Diff Figures\"",
+      "date: '`r Sys.Date()`'",
       "output:",
       "  html_document:",
+      "    theme: flatly",
       "    toc: true",
+      "    toc_float:",
+      "      collapsed: true",
       "---",
       sep = "\n")
   
@@ -18,14 +22,13 @@ createDiffMarkdown <- function(dfpaths, outputFileName = tempfile("diff-figure",
     content <- paste(
       content,
       paste0("# ", basename(dfpaths$path1[row.i])),
-      "```{r out.height = 360}",
+      "```{r out.height = 360, echo=FALSE}",
       dfpaths$graphics[row.i],
       "```",
       sep = "\n")
   }
   
   writeLines(content, con = outputFileName)
-  cat("R Markdown template has been created with the name:", outputFileName, "\n")
   
   # output ------------------------------------------------------------------
   temp_out <- tempfile(fileext = ".html")
