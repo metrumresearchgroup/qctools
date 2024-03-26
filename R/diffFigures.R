@@ -1,5 +1,23 @@
-#' @keywords internal
-createDiffMarkdown <- function(dfpaths, outputFileName = tempfile("diff-figure", fileext = ".Rmd")) {
+#' @export
+diffFigures <- function(figure1, figure2 = NULL) {
+  
+  if (!file.exists(figure1)) {
+    stop(figure1, " does not exist")
+  }
+  
+  if (is.null(figure2)) {
+    figure2 <- getRepoVersion(figure1)
+  }
+  
+  if (!file.exists(figure2)) {
+    stop(figure2, " does not exist")
+  }
+  
+  dfpaths <-
+    data.frame(
+      path1 = figure1,
+      path2 = figure2
+    )
   
   dfpaths$graphics <- paste0("knitr::include_graphics(c('", dfpaths$path1, "', '", dfpaths$path2, "'))")
   
@@ -26,6 +44,8 @@ createDiffMarkdown <- function(dfpaths, outputFileName = tempfile("diff-figure",
       "```",
       sep = "\n")
   }
+  
+  outputFileName = tempfile("diff-figure", fileext = ".Rmd")
   
   writeLines(content, con = outputFileName)
   
