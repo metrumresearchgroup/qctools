@@ -27,7 +27,8 @@ diffQced <- function(file) {
   log <- logCheckRead()
   
   log_accepts <- log[log$commit != "Initial-Assignment", ]
-  log_file <- log_accepts[log_accepts$file == file_rel, "commit"]
+  log_ignores <- log_accepts[log_accepts$commit != "Ignore", ]
+  log_file <- log_ignores[log_ignores$file == file_rel, "commit"]
   
   if (length(log_file) == 0) {
     stop(paste0(file, " not in QC log"), call. = FALSE)

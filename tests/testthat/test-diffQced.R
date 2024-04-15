@@ -55,3 +55,21 @@ test_that("diffQced works with subdirectories", {
   
   
 })
+
+test_that("diffQced works if there is QC history before logIgnore call", {
+  
+  with_demoRepo({
+    
+    logIgnore("script/data-assembly.R")
+    
+    x <- diffQced("script/data-assembly.R")
+    
+    expect_equal(length(x@target) + 5, length(x@current))
+    
+    logIgnore("script/examp-txt.txt")
+    
+    expect_error(diffQced("script/examp-txt.txt"))
+    
+  })
+  
+})
