@@ -19,9 +19,11 @@ logPending <- function() {
   
   log_unique <- logUniquebyFile(list_of_files)
   
-  # Combine gitLog output for files with log_unique
+  log_unique_of_interest <- log_unique[log_unique$commit != "Ignore", ]
+  
+  # Combine gitLog output for files with log_unique_of_interest
   gitFiles <- gitLog(list_of_files = list_of_files)
-  combineLogGit <- merge(log_unique, gitFiles)
+  combineLogGit <- merge(log_unique_of_interest, gitFiles)
   filterLogGit <- combineLogGit[combineLogGit$commit != combineLogGit$last_commit,]
   
   filterLogGit[c("file", "last_author", "reviewer", "datetime")]
