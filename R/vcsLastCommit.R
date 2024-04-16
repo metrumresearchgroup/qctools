@@ -12,7 +12,9 @@
 #' })
 #' 
 #' @export
-gitLog <- function(list_of_files) {
+vcsLastCommit <- function(list_of_files, vcs) {
+  
+  vcs <- get_vcs()
   
   outDF <- data.frame()
   
@@ -26,13 +28,25 @@ gitLog <- function(list_of_files) {
     
     file_rel <- fs::path_rel(path = file_abs, start = logDir())
     
-    p <- processx::run("git", c("--literal-pathspecs", "log", "--format=%H%x09%an%x09%aI%x09", "-n1", "--", file_rel), wd = logDir())
-    
-    if (length(length(p$stdout)) != 1) {
-      stop(paste0("Could not find git history of '", file_abs, "'"), call. = FALSE)
+    if (vcs == "git") {
+      p <- processx::run("git", c("--literal-pathspecs", "log", "--format=%H%x09%an%x09%aI%x09", "-n1", "--", file_rel), wd = logDir())
+      
+      if (length(length(p$stdout)) != 1) {
+        stop(paste0("Could not find git history of '", file_abs, "'"), call. = FALSE)
+      }
+      
+      p_out <- unlist(strsplit(p$stdout, split = "\t"))
     }
     
-    p_out <- unlist(strsplit(p$stdout, split = "\t"))
+    if (vcs == "svn") {
+      p <- processx::run("svn", c("info", file_rel), wd = logDir())
+      p_info <- strsplit(p$stdout, split = "\n")
+      
+      p_out <- c(
+        as.numeric(strsplit(p_info[[1]][8], ":")[[1]][2]),
+        trimws(strsplit(p_info[[1]][11], ":")[[1]][2]),
+        substr(p_info[[1]][13], 20, 38))
+    }
     
     outDF <-
       rbind(

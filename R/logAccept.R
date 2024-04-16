@@ -15,12 +15,12 @@
 #' @export
 logAccept <- function(file){
   
-  git_commit <- gitLog(file)
+  version <- vcsLastCommit(file)
   
   logEdit(
     .file = file,
     .reviewer = Sys.info()[["user"]],
-    .commit = git_commit$last_commit
+    .commit = version$last_commit
   )
   
 }
