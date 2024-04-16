@@ -21,7 +21,7 @@ logIgnore <- function(file) {
 
   logEdit(
     .file = file,
-    .reviewer = "none",
+    .reviewer = Sys.info()[["user"]],
     .commit = "Ignore"
   )
 }
