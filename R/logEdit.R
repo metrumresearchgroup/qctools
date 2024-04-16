@@ -31,6 +31,15 @@ logEdit <- function(.file,
     )
   }
   
+  if (!file_rel %in% log$file & .commit == "Ignore") {
+    stop(
+      paste0(
+        "'", file_rel, "' not in QC log"
+      ),
+      call. = FALSE
+    )
+  }
+  
   new_row <-
     data.frame(
       file = file_rel,

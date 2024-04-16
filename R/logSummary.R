@@ -18,9 +18,11 @@ logSummary <- function() {
   
   log_unique <- logUniquebyFile(list_of_files)
   
+  log_unique_of_interest <- log_unique[log_unique$commit != "Ignore", ]
+  
   gitFiles <- gitLog(list_of_files = list_of_files)
   
-  combineLogGit <- merge(log_unique, gitFiles)
+  combineLogGit <- merge(log_unique_of_interest, gitFiles)
   
   combineLogGit$status <- ifelse(
     combineLogGit$commit == "Initial-Assignment", "Assigned - needs QC", 
