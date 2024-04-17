@@ -94,3 +94,12 @@ demoRepoSVN <- function(clean = TRUE) {
   repoDir
   
 }
+
+#' @rdname demoRepo
+#' 
+#' @param code Executable code to run 
+#' @export
+with_demoRepoSVN <- function(code, clean = TRUE) {
+  repo <- demoRepoSVN(clean)
+  withr::with_dir(repo, code)
+}
