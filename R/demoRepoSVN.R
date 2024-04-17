@@ -13,7 +13,7 @@
 #' 
 #' @param clean Logical indicating if the temporary directory should be deleted after use
 #' 
-#' @usage demoRepo(clean = TRUE)
+#' @usage demoRepoSVN(clean = TRUE)
 #'
 #' @export
 demoRepoSVN <- function(clean = TRUE) {

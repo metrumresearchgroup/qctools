@@ -8,11 +8,11 @@
 #' 
 #' @examples 
 #' with_demoRepo({
-#'   gitLog("script/examp-txt.txt")
+#'   vcsLastCommit("script/examp-txt.txt")
 #' })
 #' 
 #' @export
-vcsLastCommit <- function(list_of_files, vcs) {
+vcsLastCommit <- function(list_of_files) {
   
   vcs <- get_vcs()
   

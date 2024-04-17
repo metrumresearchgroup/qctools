@@ -4,7 +4,7 @@
 \alias{vcsLastCommit}
 \title{Get commit info of last modified version of a file}
 \usage{
-vcsLastCommit(list_of_files, vcs)
+vcsLastCommit(list_of_files)
 }
 \arguments{
 \item{list_of_files}{vector of file paths (can also pass only 1 file)}
@@ -15,7 +15,7 @@ commit for all input files.
 }
 \examples{
 with_demoRepo({
-  gitLog("script/examp-txt.txt")
+  vcsLastCommit("script/examp-txt.txt")
 })
 
 }

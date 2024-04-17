@@ -4,7 +4,7 @@
 \alias{demoRepoSVN}
 \title{Create Demo SVN Repo}
 \usage{
-demoRepo(clean = TRUE)
+demoRepoSVN(clean = TRUE)
 }
 \arguments{
 \item{clean}{Logical indicating if the temporary directory should be deleted after use}
