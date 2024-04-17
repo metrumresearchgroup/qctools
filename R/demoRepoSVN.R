@@ -53,4 +53,44 @@ demoRepoSVN <- function(clean = TRUE) {
   processx::run("svn", c("add", "--force", "."))
   processx::run("svn", c("commit", "-m", "'logAccept scripts ready for QC'", "-q", "-q"))
   
+  # Make edits to QCed file
+  writeLines(
+    c('pk_spec <- yspec::load_spec(here::here("script", "examp-yaml.yaml"))'),
+    "script/pk/load-spec.R"
+  )
+  
+  processx::run("svn", c("add", "--force", "."))
+  processx::run("svn", c("commit", "-m", "'modify load-spec script'", "-q", "-q"))
+  
+  writeLines(
+    c(
+      "library(tidyverse)",
+      'source(here::here("script", "data-assembly", "da-functions.R"))',
+      'src_abc <- mrgda::read_src_dir(here::here("data", "source", "STUDY-ABC"))',
+      "derived <- list(sl = list(),tv = list())",
+      'dm_0 <- src_abc$dm %>% filter(ACTARM != "Screen Failure")',
+      "derived$sl$dm <- dm_0",
+      'pk_0 <- src_abc$pc %>% filter(PCTEST == "TEST OF INTEREST")',
+      "derived$tv$pc <- pk_0",
+      'ex_1 <- src_abc$ex %>% filter(EXTRT == "DRUG OF INTEREST")',
+      "derived$tv$dosing <- ex_1"
+    ),
+    "script/data-assembly.R"
+  )
+  
+  processx::run("svn", c("add", "--force", "."))
+  processx::run("svn", c("commit", "-m", "'modify data-assembly'", "-q", "-q"))
+  
+  writeLines(
+    c("The following tasks are suggested to gain familiarity with the review package:",
+      '- run `diffQced()` on "script/pk/load-spec.R" and "script/data-assembly.R"',
+      '- run `renderQCSummary()`',
+      '- use `logAssign()` to add "script/examp-txt.txt" to the QC log',
+      '- run `logPending()` to see what scripts are in need of QC',
+      '- use `logAccept()` to sign off on any scripts with pending QC'),
+    "README.md"
+  )
+  
+  repoDir
+  
 }
