@@ -1,13 +1,14 @@
 #' @keywords internal
 get_vcs <- function() {
   
-  all_files <- list.files(logDir(), all.files = TRUE)
+  svnCheck <- tryCatch(processx::run("svn", c("info"), error_on_status = FALSE))
+  gitCheck <- tryCatch(processx::run("git", c("log"), error_on_status = FALSE))
   
-  if (".svn" %in% all_files) {
+  if (svnCheck$status == 0) {
     return("svn")
   } 
   
-  if (".git" %in% all_files) {
+  if (gitCheck$status == 0) {
     return("git")
   } 
   
