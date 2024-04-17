@@ -18,13 +18,13 @@ logSummary <- function() {
   
   log_unique <- logUniquebyFile(list_of_files)
   
-  gitFiles <- gitLog(list_of_files = list_of_files)
+  getFiles <- vcsLastCommit(list_of_files = list_of_files)
   
-  combineLogGit <- merge(log_unique, gitFiles)
+  combineLog <- merge(log_unique, getFiles)
   
-  combineLogGit$status <- ifelse(
-    combineLogGit$commit == "Initial-Assignment", "Assigned - needs QC", 
-    ifelse(combineLogGit$commit != combineLogGit$last_commit, "Modified - needs QC", "Fully QCed"))
+  combineLog$status <- ifelse(
+    combineLog$commit == "Initial-Assignment", "Assigned - needs QC", 
+    ifelse(combineLog$commit != combineLog$last_commit, "Modified - needs QC", "Fully QCed"))
   
-  combineLogGit[c("file", "status")]
+  combineLog[c("file", "status")]
 }
