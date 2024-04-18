@@ -14,7 +14,7 @@ Returns a data.frame including the commit hash, last author and datetime of last
 commit for all input files.
 }
 \examples{
-with_demoRepo({
+with_demoRepoGit({
   vcsLastCommit("script/examp-txt.txt")
 })
 

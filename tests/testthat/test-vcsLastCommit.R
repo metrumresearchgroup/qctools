@@ -3,7 +3,7 @@ file2 <- "script/pk/load-spec.R"
 
 test_that("vcsLastCommit returns the commit the file was last modified", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     
     gitFile1 <- vcsLastCommit(file1)
     gitFile2 <- vcsLastCommit(file2)

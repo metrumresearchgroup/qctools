@@ -8,7 +8,7 @@
 #' @param file character file path (either the absolute or relative file path from the QC log)
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   logAccept(file = "script/data-assembly.R")
 #' })
 #' 

@@ -7,7 +7,7 @@
 #' @param list_of_files vector of file paths (can also pass only 1 file)
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   vcsLastCommit("script/examp-txt.txt")
 #' })
 #' 

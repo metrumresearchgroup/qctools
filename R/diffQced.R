@@ -8,7 +8,7 @@
 #' @param file file path from working directory
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   diffQced("script/data-assembly.R")
 #' })
 #' 

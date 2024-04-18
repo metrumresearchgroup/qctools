@@ -2,12 +2,17 @@
 % Please edit documentation in R/demoRepoSVN.R
 \name{demoRepoSVN}
 \alias{demoRepoSVN}
+\alias{with_demoRepoSVN}
 \title{Create Demo SVN Repo}
 \usage{
 demoRepoSVN(clean = TRUE)
+
+with_demoRepoSVN(code, clean = TRUE)
 }
 \arguments{
 \item{clean}{Logical indicating if the temporary directory should be deleted after use}
+
+\item{code}{Executable code to run}
 }
 \description{
 Create a SVN repo with files checked in and a QC log. The purpose of this

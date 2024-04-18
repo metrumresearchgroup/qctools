@@ -6,7 +6,7 @@
 #' their last QC was completed. 
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   logPending()
 #' })
 #' 

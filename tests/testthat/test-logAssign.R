@@ -1,6 +1,6 @@
 test_that("logAssign adds files to QC log with expected values", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     
     log <- logCheckRead()
     
@@ -23,7 +23,7 @@ test_that("logAssign adds files to QC log with expected values", {
 
 test_that("logAssign works with variation of paths provided", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     
     path_to_qc_log <- file.path(logDir(),"QClog.csv")
     

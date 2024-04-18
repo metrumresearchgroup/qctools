@@ -1,6 +1,6 @@
 test_that("diffQced provides visual diff of files with differences", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     x <- diffQced("script/data-assembly.R")
     
     expect_equal(length(x@target) + 5, length(x@current))
@@ -14,7 +14,7 @@ test_that("diffQced provides visual diff of files with differences", {
 
 test_that("diffQced returns specified messages if no differences", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     expect_error(diffQced("script/combine-da.R"), "File is up to date with QC")
     expect_error(diffQced("script/examp-txt.txt"), "script/examp-txt.txt not in QC log")
   })
@@ -22,7 +22,7 @@ test_that("diffQced returns specified messages if no differences", {
 
 test_that("diffQced works with subdirectories", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     
     # Create subdirectory
     fs::dir_create("subdir")
@@ -56,47 +56,47 @@ test_that("diffQced works with subdirectories", {
   
 })
 
-test_that("diffQced works with subdirectories in SVN", {
-  
-  with_demoRepo({
-    
-    x <- diffQced("script/data-assembly.R")
-    
-    expect_equal(length(x@target) + 5, length(x@current))
-    expect_equal(x@tar.dat$orig[1], x@cur.dat$orig[1])
-    
-    y <- diffQced("script/pk/load-spec.R")
-    
-    expect_true(y@tar.dat$orig[1] != y@cur.dat$orig[1])
-    
-    # Create subdirectory
-    fs::dir_create("subdir")
-    setwd("subdir")
-    
-    # Add QC log & Rproj file
-    writeLines("Version: 1.0", con = "temp2.Rproj")
-    logCreate()
-    
-    # Create script directory
-    fs::dir_create("script")
-    writeLines("Example text", con = "script/subdir2.txt")
-    
-    # Check in new files to git
-    processx::run("git", c("add", "."))
-    processx::run("git", c("commit", "-m", "'add subdir'", "--quiet"))
-    logAccept("script/subdir2.txt")
-    
-    writeLines("New text", con = "script/subdir2.txt")
-    
-    processx::run("git", c("add", "."))
-    processx::run("git", c("commit", "-m", "'add subdir'", "--quiet"))
-    
-    # Check diff is possible while inside subdirectory
-    diff_sub <- diffQced("script/subdir2.txt")
-    
-    expect_true(diff_sub@target == "Example text")
-    expect_true(diff_sub@current == "New text")
-  })
-  
-  
-})
+# test_that("diffQced works with subdirectories in SVN", {
+#   
+#   with_demoRepoSVN({
+#     
+#     x <- diffQced("script/data-assembly.R")
+#     
+#     expect_equal(length(x@target) + 5, length(x@current))
+#     expect_equal(x@tar.dat$orig[1], x@cur.dat$orig[1])
+#     
+#     y <- diffQced("script/pk/load-spec.R")
+#     
+#     expect_true(y@tar.dat$orig[1] != y@cur.dat$orig[1])
+#     
+#     # Create subdirectory
+#     fs::dir_create("subdir")
+#     setwd("subdir")
+# 
+#     # Add QC log & Rproj file
+#     writeLines("Version: 1.0", con = "temp2.Rproj")
+#     logCreate()
+# 
+#     # Create script directory
+#     fs::dir_create("script")
+#     writeLines("Example text", con = "script/subdir2.txt")
+# 
+#     # Check in new files to svn
+#     processx::run("svn", c("add", "--force", "."))
+#     processx::run("svn", c("commit", "-m", "'add subdir'", "-q", "-q"))
+#     logAccept("script/subdir2.txt")
+# 
+#     writeLines("New text", con = "script/subdir2.txt")
+# 
+#     processx::run("svn", c("add", "--force", "."))
+#     processx::run("svn", c("commit", "-m", "'add subdir'", "-q", "-q"))
+# 
+#     # Check diff is possible while inside subdirectory
+#     diff_sub <- diffQced("script/subdir2.txt")
+# 
+#     expect_true(diff_sub@target == "Example text")
+#     expect_true(diff_sub@current == "New text")
+#   })
+#   
+#   
+# })

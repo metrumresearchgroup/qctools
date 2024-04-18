@@ -5,7 +5,7 @@
 #' "Assigned, needs QC", "Modified, needs QC", and "Fully QCed".
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   logSummary()
 #' })
 #' 

@@ -95,7 +95,7 @@ demoRepoSVN <- function(clean = TRUE) {
   
 }
 
-#' @rdname demoRepo
+#' @rdname demoRepoSVN
 #' 
 #' @param code Executable code to run 
 #' @export

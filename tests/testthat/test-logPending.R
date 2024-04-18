@@ -1,6 +1,6 @@
 test_that("logPending accepts files in the QC log and returns expected errors", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     
     path_to_qc_log <- file.path(logDir(),"QClog.csv")
     

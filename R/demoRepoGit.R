@@ -13,10 +13,10 @@
 #' 
 #' @param clean Logical indicating if the temporary directory should be deleted after use
 #' 
-#' @usage demoRepo(clean = TRUE)
+#' @usage demoRepoGit(clean = TRUE)
 #'
 #' @export
-demoRepo <- function(clean = TRUE) {
+demoRepoGit <- function(clean = TRUE) {
   
   repoInitPath <- withr::local_tempdir(
     "qctools-demo-",
@@ -91,11 +91,11 @@ demoRepo <- function(clean = TRUE) {
   repoInitPath
 }
 
-#' @rdname demoRepo
+#' @rdname demoRepoGit
 #' 
 #' @param code Executable code to run 
 #' @export
-with_demoRepo <- function(code, clean = TRUE) {
-  repo <- demoRepo(clean)
+with_demoRepoGit <- function(code, clean = TRUE) {
+  repo <- demoRepoGit(clean)
   withr::with_dir(repo, code)
 }

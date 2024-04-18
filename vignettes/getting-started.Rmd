@@ -30,12 +30,12 @@ library(qctools)
 
 ## Create demo repo
 
-`demoRepo()` creates a temporary Git repo containing files with version history.
+`demoRepoGit()` creates a temporary Git repo containing files with version history.
 This repo already contains a QC log and partially completed QC for demonstration
 purposes. The function returns the path to the repo.
 
 ```{r}
-repo <- demoRepo()
+repo <- demoRepoGit()
 print(repo)
 ```
 
@@ -109,7 +109,7 @@ It will return all files that meet the following criteria:
 Running `logPending()` on the demo repo will result with the following output:
 
 ```{r, echo=FALSE}
-with_demoRepo(
+with_demoRepoGit(
   logPending()
 )
 ```
