@@ -12,7 +12,7 @@
 #' @param reviewer specify a specific person to review the file (defaults to "anyone")
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   logAssign(
 #'     file = "script/examp-yaml.yaml", 
 #'     reviewer = "person1")

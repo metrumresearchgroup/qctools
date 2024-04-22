@@ -5,7 +5,7 @@
 #' created in the directory where the RStudio project file (`*.Rproj`) exists.
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   file.remove("QClog.csv")
 #'   logCreate()
 #' })

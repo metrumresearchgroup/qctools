@@ -20,7 +20,7 @@ The purpose of \code{logAssign()} is to indicate a file is ready for QC. This
 will allow the file to appear on the output of \code{logPending()}.
 }
 \examples{
-with_demoRepo({
+with_demoRepoGit({
   logAssign(
     file = "script/examp-yaml.yaml", 
     reviewer = "person1")

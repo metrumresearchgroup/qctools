@@ -11,7 +11,7 @@ Creates an empty QC log file with the name "QClog.csv". This file will be
 created in the directory where the RStudio project file (\verb{*.Rproj}) exists.
 }
 \examples{
-with_demoRepo({
+with_demoRepoGit({
   file.remove("QClog.csv")
   logCreate()
 })

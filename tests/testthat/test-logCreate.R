@@ -1,6 +1,6 @@
 test_that("logCreate generates a QC log csv file with expected columns", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     
     file.remove("QClog.csv")
     
@@ -18,7 +18,7 @@ test_that("logCreate generates a QC log csv file with expected columns", {
 
 test_that("logCreate works when multiple Rproj files present", {
   
-  with_demoRepo({
+  with_demoRepoGit({
     fs::dir_create("subdir")
     setwd("subdir")
     writeLines("Version: 1.0", con = "temp2.Rproj")

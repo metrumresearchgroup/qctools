@@ -15,7 +15,7 @@ The output will appear in the viewer and only rows where there have been
 additions, deletions or modifications in the file will be shown.
 }
 \examples{
-with_demoRepo({
+with_demoRepoGit({
   diffQced("script/data-assembly.R")
 })
 

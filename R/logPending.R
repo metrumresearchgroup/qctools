@@ -6,7 +6,7 @@
 #' their last QC was completed. 
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   logPending()
 #' })
 #' 
@@ -19,10 +19,10 @@ logPending <- function() {
   
   log_unique <- logUniquebyFile(list_of_files)
   
-  # Combine gitLog output for files with log_unique
-  gitFiles <- gitLog(list_of_files = list_of_files)
-  combineLogGit <- merge(log_unique, gitFiles)
-  filterLogGit <- combineLogGit[combineLogGit$commit != combineLogGit$last_commit,]
+  # Combine vcsLastCommit output for files with log_unique
+  versionedFiles <- vcsLastCommit(list_of_files = list_of_files)
+  combineLog <- merge(log_unique, versionedFiles)
+  filterLog <- combineLog[combineLog$commit != combineLog$last_commit,]
   
-  filterLogGit[c("file", "last_author", "reviewer", "datetime")]
+  filterLog[c("file", "last_author", "reviewer", "datetime")]
 }

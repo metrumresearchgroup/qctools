@@ -15,7 +15,7 @@ commit where the file's last modification occurred. The username of the
 reviewer will be included in the new row as well.
 }
 \examples{
-with_demoRepo({
+with_demoRepoGit({
   logAccept(file = "script/data-assembly.R")
 })
 

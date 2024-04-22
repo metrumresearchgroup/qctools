@@ -8,19 +8,19 @@
 #' @param file character file path (either the absolute or relative file path from the QC log)
 #' 
 #' @examples 
-#' with_demoRepo({
+#' with_demoRepoGit({
 #'   logAccept(file = "script/data-assembly.R")
 #' })
 #' 
 #' @export
 logAccept <- function(file){
   
-  git_commit <- gitLog(file)
+  version <- vcsLastCommit(file)
   
   logEdit(
     .file = file,
     .reviewer = Sys.info()[["user"]],
-    .commit = git_commit$last_commit
+    .commit = version$last_commit
   )
   
 }
