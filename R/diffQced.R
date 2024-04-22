@@ -45,30 +45,14 @@ diffQced <- function(file) {
   tempfile_new <- file.path(tempdir(), paste0("new-", basename(file_rel)))
   tempfile_qc <- file.path(tempdir(), paste0("qced-", basename(file_rel)))
   
-  if (vcs == "git") {
-    
-    # Prepend "./" so that 'git cat-file' interprets the path relative to the
-    # working directory rather than the top-level directory of the Git repo.
-    commit_file_new <- paste0(version_new, ":./", file_rel)
-    commit_file_qc <- paste0(version_qc, ":./", file_rel)
-    
-    processx::run(
-      "git", c("cat-file", "blob", commit_file_new),
-      stdout = tempfile_new, wd = logDir())
-    processx::run(
-      "git", c("cat-file", "blob", commit_file_qc),
-      stdout = tempfile_qc, wd = logDir())
-  }
-  
-  if (vcs == "svn") {
-    
-    processx::run("svn", c("export", file_rel, paste0("-r", version_new), tempfile_new),
-                  wd = logDir())
-    
-    processx::run("svn", c("export", file_rel, paste0("-r", version_qc), tempfile_qc),
-                  wd = logDir())
-    
-  }
+  vcsExport(
+    .file = file_rel,
+    .vcs = vcs,
+    .version_new = version_new,
+    .version_qc = version_qc,
+    .temp_new = tempfile_new,
+    .temp_qc = tempfile_qc
+    )
   
   diffobj::diffFile(
     target = tempfile_qc,
