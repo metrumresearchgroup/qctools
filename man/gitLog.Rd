@@ -4,14 +4,16 @@
 \alias{gitLog}
 \title{Get commit info of last modified version of a file}
 \usage{
-gitLog(list_of_files)
+gitLog(list_of_files, last_rev_only = FALSE)
 }
 \arguments{
 \item{list_of_files}{vector of file paths (can also pass only 1 file)}
+
+\item{last_rev_only}{if set to TRUE will only return the last commit, author and datetime of last revision}
 }
 \description{
-Returns a data.frame including the commit hash, last author and datetime of last
-commit for all input files.
+Returns a data.frame including the commit hash, last author and datetime of all
+commits for all input files.
 }
 \examples{
 with_demoRepo({

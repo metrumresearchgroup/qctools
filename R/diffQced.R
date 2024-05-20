@@ -33,7 +33,7 @@ diffQced <- function(file) {
     stop(paste0(file, " not in QC log"), call. = FALSE)
   }
   
-  version_new <- gitLog(file)[["last_commit"]]
+  version_new <- gitLog(file, last_rev_only = TRUE)[["last_commit"]]
   version_qc <- log_file[length(log_file)]
   
   if (version_new == version_qc) {

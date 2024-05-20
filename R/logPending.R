@@ -20,7 +20,7 @@ logPending <- function() {
   log_unique <- logUniquebyFile(list_of_files)
   
   # Combine gitLog output for files with log_unique
-  gitFiles <- gitLog(list_of_files = list_of_files)
+  gitFiles <- gitLog(list_of_files = list_of_files, last_rev_only = TRUE)
   combineLogGit <- merge(log_unique, gitFiles)
   filterLogGit <- combineLogGit[combineLogGit$commit != combineLogGit$last_commit,]
   
