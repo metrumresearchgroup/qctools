@@ -2,15 +2,19 @@
 % Please edit documentation in R/diffQced.R
 \name{diffQced}
 \alias{diffQced}
-\title{Visual diff of last QCed version of a file to the local version.}
+\title{Visual diff of last QCed version of a file to the latest version.}
 \usage{
-diffQced(file)
+diffQced(file, side_by_side = TRUE, ignore_white_space = FALSE)
 }
 \arguments{
 \item{file}{file path from working directory}
+
+\item{side_by_side}{Logical. Should diffs be displayed side by side?}
+
+\item{ignore_white_space}{Logical. Should white space be ignored?}
 }
 \description{
-Compares the local version of a file with the most recent QCed version.
+Compares the latest version of a file with the most recent QCed version.
 The output will appear in the viewer and only rows where there have been
 additions, deletions or modifications in the file will be shown.
 }

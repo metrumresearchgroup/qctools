@@ -3,7 +3,9 @@ diffGenerate <- function(file_rel,
                          version_new, 
                          version_prev, 
                          banner_new, 
-                         banner_prev) {
+                         banner_prev,
+                         side_by_side = TRUE,
+                         ignore_white_space = FALSE) {
   
   # Prepend "./" so that 'git cat-file' interprets the path relative to the
   # working directory rather than the top-level directory of the Git repo.
@@ -24,7 +26,7 @@ diffGenerate <- function(file_rel,
     target = tempfile_qc,
     current = tempfile_new, 
     color.mode = "rgb",
-    mode = "sidebyside",
+    mode = ifelse(side_by_side, "sidebyside", "unified"),
     tar.banner = banner_prev,
     cur.banner = banner_new,
     ignore.white.space = FALSE

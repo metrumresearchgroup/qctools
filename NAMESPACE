@@ -2,6 +2,8 @@
 
 export(demoRepo)
 export(diffFiles)
+export(diffOriginal)
+export(diffPreviousVersions)
 export(diffQced)
 export(gitLog)
 export(logAccept)

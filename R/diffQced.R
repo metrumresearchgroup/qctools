@@ -1,11 +1,13 @@
-#' Visual diff of last QCed version of a file to the local version.
+#' Visual diff of last QCed version of a file to the latest version.
 #' 
 #' @description 
-#' Compares the local version of a file with the most recent QCed version.
+#' Compares the latest version of a file with the most recent QCed version.
 #' The output will appear in the viewer and only rows where there have been
 #' additions, deletions or modifications in the file will be shown.
 #'
 #' @param file file path from working directory
+#' @param side_by_side Logical. Should diffs be displayed side by side?
+#' @param ignore_white_space Logical. Should white space be ignored?
 #' 
 #' @examples 
 #' with_demoRepo({
@@ -13,7 +15,7 @@
 #' })
 #' 
 #' @export
-diffQced <- function(file) {
+diffQced <- function(file, side_by_side = TRUE, ignore_white_space = FALSE) {
   
   # Modify file to correct path format
   file_abs <- fs::path_abs(path = file)
@@ -33,7 +35,7 @@ diffQced <- function(file) {
     stop(paste0(file, " not in QC log"), call. = FALSE)
   }
   
-  version_new <- gitLog(file, last_rev_only = TRUE)[["last_commit"]]
+  version_new <- gitLog(file_rel, last_rev_only = TRUE)[["last_commit"]]
   version_qc <- log_file[length(log_file)]
   
   if (version_new == version_qc) {
@@ -44,7 +46,9 @@ diffQced <- function(file) {
     file_rel = file_rel, 
     version_new = version_new, 
     version_prev = version_qc,
-    banner_new = "Local version", 
-    banner_prev = "QCed version")
+    banner_new = "Latest version", 
+    banner_prev = "QCed version",
+    side_by_side = side_by_side,
+    ignore_white_space = ignore_white_space)
   
 }
