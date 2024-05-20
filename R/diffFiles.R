@@ -16,8 +16,8 @@
 #' @param ignore_white_space Logical. Should white space be ignored?
 #' @examples 
 #' with_demoRepo({
-#'  diffFiles(.file_1 = "script/data-assembly.R", 
-#'            .file_2 = "script/combine-da.R")
+#'  diffFiles(file_1 = "script/data-assembly.R", 
+#'            file_2 = "script/combine-da.R")
 #' })
 #' 
 #' @export

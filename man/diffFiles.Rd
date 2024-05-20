@@ -36,8 +36,8 @@ an existing script.
 }
 \examples{
 with_demoRepo({
- diffFiles(.file_1 = "script/data-assembly.R", 
-           .file_2 = "script/combine-da.R")
+ diffFiles(file_1 = "script/data-assembly.R", 
+           file_2 = "script/combine-da.R")
 })
 
 }
