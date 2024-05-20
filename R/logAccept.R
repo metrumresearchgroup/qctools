@@ -15,7 +15,7 @@
 #' @export
 logAccept <- function(file){
   
-  git_commit <- gitLog(file)
+  git_commit <- gitLog(file, last_rev_only = TRUE)
   
   logEdit(
     .file = file,

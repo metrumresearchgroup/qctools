@@ -18,7 +18,7 @@ logSummary <- function() {
   
   log_unique <- logUniquebyFile(list_of_files)
   
-  gitFiles <- gitLog(list_of_files = list_of_files)
+  gitFiles <- gitLog(list_of_files = list_of_files, last_rev_only = TRUE)
   
   combineLogGit <- merge(log_unique, gitFiles)
   
