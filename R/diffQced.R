@@ -40,29 +40,11 @@ diffQced <- function(file) {
     stop("File is up to date with QC", call. = FALSE)
   }
   
-  # Prepend "./" so that 'git cat-file' interprets the path relative to the
-  # working directory rather than the top-level directory of the Git repo.
-  commit_file_new <- paste0(version_new, ":./", file_rel)
-  commit_file_qc <- paste0(version_qc, ":./", file_rel)
-  
-  tempfile_new <- file.path(tempdir(), paste0("new-", basename(file_rel)))
-  tempfile_qc <- file.path(tempdir(), paste0("qced-", basename(file_rel)))
-  
-  processx::run(
-    "git", c("cat-file", "blob", commit_file_new),
-    stdout = tempfile_new, wd = logDir())
-  processx::run(
-    "git", c("cat-file", "blob", commit_file_qc),
-    stdout = tempfile_qc, wd = logDir())
-  
-  diffobj::diffFile(
-    target = tempfile_qc,
-    current = tempfile_new, 
-    color.mode = "rgb",
-    mode = "sidebyside",
-    tar.banner = "QCed version",
-    cur.banner = "Current version",
-    ignore.white.space = FALSE
-  )
+  diffGenerate(
+    file_rel = file_rel, 
+    version_new = version_new, 
+    version_prev = version_qc,
+    banner_new = "Local version", 
+    banner_prev = "QCed version")
   
 }
