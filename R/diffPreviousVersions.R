@@ -38,7 +38,7 @@ diffPreviousVersions <- function(file,
   }
   
   if(is.null(banner_cur)) {
-    banner_cur <- paste0("Latest version (", substr(current_version, 1, 7), ")")
+    banner_cur <- paste0("Current version (", substr(current_version, 1, 7), ")")
   }
   
   if(is.null(banner_prev)) {
