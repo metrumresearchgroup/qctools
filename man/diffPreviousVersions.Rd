@@ -2,13 +2,13 @@
 % Please edit documentation in R/diffPreviousVersions.R
 \name{diffPreviousVersions}
 \alias{diffPreviousVersions}
-\title{Visual diff of two versions of a file}
+\title{Visual diff of two versions of a file.}
 \usage{
 diffPreviousVersions(
   file,
   previous_version,
   current_version = NULL,
-  banner_new = NULL,
+  banner_cur = NULL,
   banner_prev = NULL,
   side_by_side = TRUE,
   ignore_white_space = FALSE
@@ -21,7 +21,7 @@ diffPreviousVersions(
 
 \item{current_version}{current version (defaults to local copy)}
 
-\item{banner_new}{Header for first file in viewer}
+\item{banner_cur}{Header for first file in viewer}
 
 \item{banner_prev}{Header for second file in viewer}
 

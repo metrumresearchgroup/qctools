@@ -1,4 +1,4 @@
-#' Visual diff of two versions of a file
+#' Visual diff of two versions of a file.
 #' 
 #' @description 
 #' Compares two versions of a file. The output will appear in the viewer 
@@ -8,7 +8,7 @@
 #' @param file file path from working directory
 #' @param previous_version commit hash of version to compare to current revision
 #' @param current_version current version (defaults to local copy)
-#' @param banner_new Header for first file in viewer
+#' @param banner_cur Header for first file in viewer
 #' @param banner_prev Header for second file in viewer
 #' @param side_by_side Logical. Should diffs be displayed side by side?
 #' @param ignore_white_space Logical. Should white space be ignored?
@@ -26,7 +26,7 @@
 diffPreviousVersions <- function(file,
                                  previous_version,
                                  current_version = NULL,
-                                 banner_new = NULL,
+                                 banner_cur = NULL,
                                  banner_prev = NULL,
                                  side_by_side = TRUE,
                                  ignore_white_space = FALSE){
@@ -37,8 +37,8 @@ diffPreviousVersions <- function(file,
     current_version <- gitLog(file_rel, last_rev_only = TRUE)[["last_commit"]]
   }
   
-  if(is.null(banner_new)) {
-    banner_new <- paste0("Latest version (", substr(current_version, 1, 7), ")")
+  if(is.null(banner_cur)) {
+    banner_cur <- paste0("Latest version (", substr(current_version, 1, 7), ")")
   }
   
   if(is.null(banner_prev)) {
@@ -49,7 +49,7 @@ diffPreviousVersions <- function(file,
     file_rel = file_rel, 
     version_new = current_version, 
     version_prev = previous_version,
-    banner_new = banner_new,
+    banner_new = banner_cur,
     banner_prev = banner_prev,
     side_by_side = side_by_side,
     ignore_white_space = ignore_white_space
