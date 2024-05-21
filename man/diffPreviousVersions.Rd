@@ -6,8 +6,8 @@
 \usage{
 diffPreviousVersions(
   file,
-  previous_revision,
-  current_revision = NULL,
+  previous_version,
+  current_version = NULL,
   side_by_side = TRUE,
   ignore_white_space = FALSE
 )
@@ -15,9 +15,9 @@ diffPreviousVersions(
 \arguments{
 \item{file}{file path from working directory}
 
-\item{previous_revision}{commit hash of version to compare to current revision}
+\item{previous_version}{commit hash of version to compare to current revision}
 
-\item{current_revision}{current version (defaults to local copy)}
+\item{current_version}{current version (defaults to local copy)}
 
 \item{side_by_side}{Logical. Should diffs be displayed side by side?}
 
@@ -36,7 +36,7 @@ with_demoRepo({
  prev_version <- gitLog("script/data-assembly.R")[2,][["last_commit"]]
  
  diffPreviousVersions(file = "script/data-assembly.R", 
-                       previous_revision = prev_version)
+                       previous_version = prev_version)
 })
 
 }

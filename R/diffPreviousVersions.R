@@ -8,8 +8,8 @@
 #' The user can also provide two previous versions 
 #'
 #' @param file file path from working directory
-#' @param previous_revision commit hash of version to compare to current revision
-#' @param current_revision current version (defaults to local copy)
+#' @param previous_version commit hash of version to compare to current revision
+#' @param current_version current version (defaults to local copy)
 #' @param side_by_side Logical. Should diffs be displayed side by side?
 #' @param ignore_white_space Logical. Should white space be ignored?
 #' 
@@ -19,13 +19,13 @@
 #'  prev_version <- gitLog("script/data-assembly.R")[2,][["last_commit"]]
 #'  
 #'  diffPreviousVersions(file = "script/data-assembly.R", 
-#'                        previous_revision = prev_version)
+#'                        previous_version = prev_version)
 #' })
 #' 
 #' @export
 diffPreviousVersions <- function(file,
-                                 previous_revision,
-                                 current_revision = NULL,
+                                 previous_version,
+                                 current_version = NULL,
                                  side_by_side = TRUE,
                                  ignore_white_space = FALSE){
   
@@ -38,14 +38,16 @@ diffPreviousVersions <- function(file,
   
   file_rel <- fs::path_rel(path = file_abs, start = logDir())
   
-  latest_ver <- gitLog(file_rel, last_rev_only = TRUE)[["last_commit"]]
-  
+  if (is.null(current_version)) {
+    current_version <- gitLog(file_rel, last_rev_only = TRUE)[["last_commit"]]
+  }
+
   diffGenerate(
     file_rel = file_rel, 
-    version_new = latest_ver, 
-    version_prev = previous_revision,
-    banner_new = paste0("Latest version (", substr(latest_ver, 1, 7), ")"),
-    banner_prev = paste0("Previous version (", substr(previous_revision, 1, 7), ")"),
+    version_new = current_version, 
+    version_prev = previous_version,
+    banner_new = paste0("Latest version (", substr(current_version, 1, 7), ")"),
+    banner_prev = paste0("Previous version (", substr(previous_version, 1, 7), ")"),
     side_by_side = side_by_side,
     ignore_white_space = ignore_white_space
   )
