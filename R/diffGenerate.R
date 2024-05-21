@@ -10,20 +10,20 @@ diffGenerate <- function(file_rel,
   # Prepend "./" so that 'git cat-file' interprets the path relative to the
   # working directory rather than the top-level directory of the Git repo.
   commit_file_new <- paste0(version_new, ":./", file_rel)
-  commit_file_qc <- paste0(version_prev, ":./", file_rel)
+  commit_file_prev <- paste0(version_prev, ":./", file_rel)
   
   tempfile_new <- file.path(tempdir(), paste0("new-", basename(file_rel)))
-  tempfile_qc <- file.path(tempdir(), paste0("qced-", basename(file_rel)))
+  tempfile_prev <- file.path(tempdir(), paste0("prev-", basename(file_rel)))
   
   processx::run(
     "git", c("cat-file", "blob", commit_file_new),
     stdout = tempfile_new, wd = logDir())
   processx::run(
-    "git", c("cat-file", "blob", commit_file_qc),
-    stdout = tempfile_qc, wd = logDir())
+    "git", c("cat-file", "blob", commit_file_prev),
+    stdout = tempfile_prev, wd = logDir())
   
   diffFiles(
-    file_1 = tempfile_qc, 
+    file_1 = tempfile_prev, 
     file_2 = tempfile_new, 
     banner_1 = banner_prev, 
     banner_2 = banner_new, 

@@ -44,5 +44,4 @@ diffOriginal <- function(file, side_by_side = TRUE, ignore_white_space = FALSE) 
     side_by_side = side_by_side,
     ignore_white_space = ignore_white_space
     )
-  
 }
