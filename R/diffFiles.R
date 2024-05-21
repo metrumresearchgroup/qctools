@@ -29,11 +29,11 @@ diffFiles <- function(file_1,
                       ignore_white_space = FALSE) {
   
   if (is.null(banner_1)) {
-    banner_1 = basename(file_1)
+    banner_1 <- basename(file_1)
   }
   
   if (is.null(banner_2)) {
-    banner_2 = basename(file_2)
+    banner_2 <- basename(file_2)
   }
   
   diffobj::diffFile(
@@ -45,5 +45,4 @@ diffFiles <- function(file_1,
     cur.banner = banner_2,
     ignore.white.space = ignore_white_space
   )
-  
 }

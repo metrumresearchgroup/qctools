@@ -22,14 +22,12 @@ diffGenerate <- function(file_rel,
     "git", c("cat-file", "blob", commit_file_qc),
     stdout = tempfile_qc, wd = logDir())
   
-  diffobj::diffFile(
-    target = tempfile_qc,
-    current = tempfile_new, 
-    color.mode = "rgb",
-    mode = ifelse(side_by_side, "sidebyside", "unified"),
-    tar.banner = banner_prev,
-    cur.banner = banner_new,
-    ignore.white.space = FALSE
+  diffFiles(
+    file_1 = tempfile_qc, 
+    file_2 = tempfile_new, 
+    banner_1 = banner_prev, 
+    banner_2 = banner_new, 
+    side_by_side = side_by_side,
+    ignore_white_space = ignore_white_space
   )
-  
 }
