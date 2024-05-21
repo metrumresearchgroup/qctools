@@ -24,7 +24,7 @@ gitLog <- function(list_of_files, last_rev_only = FALSE) {
     p <- processx::run("git", c("--literal-pathspecs", "log", "--format=%H%x09%an%x09%aI%x09", "--", file_rel), wd = logDir())
     
     if (length(length(p$stdout)) != 1) {
-      stop(paste0("Could not find git history of '", file_abs, "'"), call. = FALSE)
+      stop(paste0("Could not find git history of '", file_rel, "'"), call. = FALSE)
     }
     
     all_history <- strsplit(unlist(strsplit(p$stdout, split = "\n")), split = "\t")
