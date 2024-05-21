@@ -2,8 +2,8 @@
 diffGenerate <- function(file_rel, 
                          version_new, 
                          version_prev, 
-                         banner_new, 
-                         banner_prev,
+                         banner_new = NULL, 
+                         banner_prev = NULL,
                          side_by_side = TRUE,
                          ignore_white_space = FALSE) {
   
@@ -22,12 +22,21 @@ diffGenerate <- function(file_rel,
     "git", c("cat-file", "blob", commit_file_prev),
     stdout = tempfile_prev, wd = logDir())
   
-  diffFiles(
-    file_1 = tempfile_prev, 
-    file_2 = tempfile_new, 
-    banner_1 = banner_prev, 
-    banner_2 = banner_new, 
-    side_by_side = side_by_side,
-    ignore_white_space = ignore_white_space
+  if (is.null(banner_prev)) {
+    banner_prev <- basename(tempfile_prev)
+  }
+  
+  if (is.null(banner_new)) {
+    banner_new <- basename(tempfile_new)
+  }
+  
+  diffobj::diffFile(
+    target = tempfile_prev,
+    current = tempfile_new, 
+    color.mode = "rgb",
+    mode = ifelse(side_by_side, "sidebyside", "unified"),
+    tar.banner = banner_prev,
+    cur.banner = banner_new,
+    ignore.white.space = ignore_white_space
   )
 }

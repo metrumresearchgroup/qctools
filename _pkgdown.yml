@@ -25,7 +25,6 @@ reference:
     - diffQced
     - diffOriginal
     - diffPreviousVersions
-    - diffFiles
     - demoRepo
     - with_demoRepo
   - title: Git Helpers

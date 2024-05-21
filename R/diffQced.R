@@ -17,14 +17,7 @@
 #' @export
 diffQced <- function(file, side_by_side = TRUE, ignore_white_space = FALSE) {
   
-  # Modify file to correct path format
-  file_abs <- fs::path_abs(path = file)
-  
-  if (!file.exists(file_abs)) {
-    stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
-  }
-  
-  file_rel <- fs::path_rel(path = file_abs, start = logDir())
+  file_rel <- getRelativePath(file)
   
   log <- logCheckRead()
   
@@ -42,13 +35,13 @@ diffQced <- function(file, side_by_side = TRUE, ignore_white_space = FALSE) {
     stop("File is up to date with QC", call. = FALSE)
   }
   
-  diffGenerate(
-    file_rel = file_rel, 
-    version_new = version_new, 
-    version_prev = version_qc,
-    banner_new = "Latest version", 
-    banner_prev = "QCed version",
-    side_by_side = side_by_side,
-    ignore_white_space = ignore_white_space)
+  message("Comparing local version of file '", file_rel, "' to QCed version")
   
+  diffPreviousVersions(
+    file = file_rel,
+    previous_version = version_qc,
+    current_version = version_new,
+    side_by_side = side_by_side,
+    ignore_white_space = ignore_white_space
+  )
 }

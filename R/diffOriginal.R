@@ -17,14 +17,7 @@
 #' @export
 diffOriginal <- function(file, side_by_side = TRUE, ignore_white_space = FALSE) {
   
-  # Modify file to correct path format
-  file_abs <- fs::path_abs(path = file)
-  
-  if (!file.exists(file_abs)) {
-    stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
-  }
-  
-  file_rel <- fs::path_rel(path = file_abs, start = logDir())
+  file_rel <- getRelativePath(file)
   
   log_res <- gitLog(file_rel, last_rev_only = FALSE)
   
@@ -35,13 +28,13 @@ diffOriginal <- function(file, side_by_side = TRUE, ignore_white_space = FALSE) 
     stop("No differences between versions", call. = FALSE)
   }
   
-  diffGenerate(
-    file_rel = file_rel, 
-    version_new = version_new, 
-    version_prev = version_original,
-    banner_new = "Latest version", 
-    banner_prev = "Original version",
+  message("Comparing local version of file '", file_rel, "' to initial commit")
+  
+  diffPreviousVersions(
+    file = file_rel,
+    previous_version = version_original,
+    current_version = version_new,
     side_by_side = side_by_side,
     ignore_white_space = ignore_white_space
-    )
+  )
 }

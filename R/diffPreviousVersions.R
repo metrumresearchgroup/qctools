@@ -10,6 +10,8 @@
 #' @param file file path from working directory
 #' @param previous_version commit hash of version to compare to current revision
 #' @param current_version current version (defaults to local copy)
+#' @param banner_new Header for first file in viewer
+#' @param banner_prev Header for second file in viewer
 #' @param side_by_side Logical. Should diffs be displayed side by side?
 #' @param ignore_white_space Logical. Should white space be ignored?
 #' 
@@ -26,28 +28,31 @@
 diffPreviousVersions <- function(file,
                                  previous_version,
                                  current_version = NULL,
+                                 banner_new = NULL,
+                                 banner_prev = NULL,
                                  side_by_side = TRUE,
                                  ignore_white_space = FALSE){
   
-  # Modify file to correct path format
-  file_abs <- fs::path_abs(path = file)
-  
-  if (!file.exists(file_abs)) {
-    stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
-  }
-  
-  file_rel <- fs::path_rel(path = file_abs, start = logDir())
+  file_rel <- getRelativePath(file)
   
   if (is.null(current_version)) {
     current_version <- gitLog(file_rel, last_rev_only = TRUE)[["last_commit"]]
+  }
+  
+  if(is.null(banner_new)) {
+    banner_new <- paste0("Latest version (", substr(current_version, 1, 7), ")")
+  }
+  
+  if(is.null(banner_prev)) {
+    banner_prev <- paste0("Previous version (", substr(previous_version, 1, 7), ")")
   }
 
   diffGenerate(
     file_rel = file_rel, 
     version_new = current_version, 
     version_prev = previous_version,
-    banner_new = paste0("Latest version (", substr(current_version, 1, 7), ")"),
-    banner_prev = paste0("Previous version (", substr(previous_version, 1, 7), ")"),
+    banner_new = banner_new,
+    banner_prev = banner_prev,
     side_by_side = side_by_side,
     ignore_white_space = ignore_white_space
   )

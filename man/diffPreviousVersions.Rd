@@ -8,6 +8,8 @@ diffPreviousVersions(
   file,
   previous_version,
   current_version = NULL,
+  banner_new = NULL,
+  banner_prev = NULL,
   side_by_side = TRUE,
   ignore_white_space = FALSE
 )
@@ -18,6 +20,10 @@ diffPreviousVersions(
 \item{previous_version}{commit hash of version to compare to current revision}
 
 \item{current_version}{current version (defaults to local copy)}
+
+\item{banner_new}{Header for first file in viewer}
+
+\item{banner_prev}{Header for second file in viewer}
 
 \item{side_by_side}{Logical. Should diffs be displayed side by side?}
 
