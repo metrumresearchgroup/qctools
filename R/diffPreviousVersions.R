@@ -1,11 +1,9 @@
-#' Visual diff of previous version of a file to the latest version.
+#' Visual diff of two versions of a file
 #' 
 #' @description 
-#' Compares the current version of a script with a previous revision.
-#' The output will appear in the viewer and only rows where there have been
-#' additions, deletions or modifications in the script will be shown.
-#' 
-#' The user can also provide two previous versions 
+#' Compares two versions of a file. The output will appear in the viewer 
+#' and only rows where there have been additions, deletions or 
+#' modifications in the file will be shown.
 #'
 #' @param file file path from working directory
 #' @param previous_version commit hash of version to compare to current revision

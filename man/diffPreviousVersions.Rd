@@ -2,7 +2,7 @@
 % Please edit documentation in R/diffPreviousVersions.R
 \name{diffPreviousVersions}
 \alias{diffPreviousVersions}
-\title{Visual diff of previous version of a file to the latest version.}
+\title{Visual diff of two versions of a file}
 \usage{
 diffPreviousVersions(
   file,
@@ -30,11 +30,9 @@ diffPreviousVersions(
 \item{ignore_white_space}{Logical. Should white space be ignored?}
 }
 \description{
-Compares the current version of a script with a previous revision.
-The output will appear in the viewer and only rows where there have been
-additions, deletions or modifications in the script will be shown.
-
-The user can also provide two previous versions
+Compares two versions of a file. The output will appear in the viewer
+and only rows where there have been additions, deletions or
+modifications in the file will be shown.
 }
 \examples{
 with_demoRepo({
