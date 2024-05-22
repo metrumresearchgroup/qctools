@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^\.github$
 ^_pkgdown.yml$
+^README\.Rmd$
 ^pkgr.yml$
 ^renv$
 ^renv\.lock$
