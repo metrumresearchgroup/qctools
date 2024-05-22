@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.drone\.yml$
+^\.github$
 ^_pkgdown.yml$
 ^pkgr.yml$
 ^renv$
