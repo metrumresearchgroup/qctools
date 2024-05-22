@@ -23,6 +23,8 @@ reference:
     desc: View difference between script versions
     contents:
     - diffQced
+    - diffOriginal
+    - diffPreviousVersions
     - demoRepo
     - with_demoRepo
   - title: Git Helpers

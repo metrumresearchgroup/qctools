@@ -1,11 +1,13 @@
-#' Visual diff of last QCed version of a file to the local version.
+#' Visual diff of last QCed version of a file to the latest version.
 #' 
 #' @description 
-#' Compares the local version of a file with the most recent QCed version.
+#' Compares the latest version of a file with the most recent QCed version.
 #' The output will appear in the viewer and only rows where there have been
 #' additions, deletions or modifications in the file will be shown.
 #'
 #' @param file file path from working directory
+#' @param side_by_side Logical. Should diffs be displayed side by side?
+#' @param ignore_white_space Logical. Should white space be ignored?
 #' 
 #' @examples 
 #' with_demoRepo({
@@ -13,16 +15,9 @@
 #' })
 #' 
 #' @export
-diffQced <- function(file) {
+diffQced <- function(file, side_by_side = TRUE, ignore_white_space = FALSE) {
   
-  # Modify file to correct path format
-  file_abs <- fs::path_abs(path = file)
-  
-  if (!file.exists(file_abs)) {
-    stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
-  }
-  
-  file_rel <- fs::path_rel(path = file_abs, start = logDir())
+  file_rel <- getRelativePath(file)
   
   log <- logCheckRead()
   
@@ -33,36 +28,20 @@ diffQced <- function(file) {
     stop(paste0(file, " not in QC log"), call. = FALSE)
   }
   
-  version_new <- gitLog(file, last_rev_only = TRUE)[["last_commit"]]
+  version_new <- gitLog(file_rel, last_rev_only = TRUE)[["last_commit"]]
   version_qc <- log_file[length(log_file)]
   
   if (version_new == version_qc) {
     stop("File is up to date with QC", call. = FALSE)
   }
   
-  # Prepend "./" so that 'git cat-file' interprets the path relative to the
-  # working directory rather than the top-level directory of the Git repo.
-  commit_file_new <- paste0(version_new, ":./", file_rel)
-  commit_file_qc <- paste0(version_qc, ":./", file_rel)
+  message("Comparing local version of file '", file_rel, "' to QCed version")
   
-  tempfile_new <- file.path(tempdir(), paste0("new-", basename(file_rel)))
-  tempfile_qc <- file.path(tempdir(), paste0("qced-", basename(file_rel)))
-  
-  processx::run(
-    "git", c("cat-file", "blob", commit_file_new),
-    stdout = tempfile_new, wd = logDir())
-  processx::run(
-    "git", c("cat-file", "blob", commit_file_qc),
-    stdout = tempfile_qc, wd = logDir())
-  
-  diffobj::diffFile(
-    target = tempfile_qc,
-    current = tempfile_new, 
-    color.mode = "rgb",
-    mode = "sidebyside",
-    tar.banner = "QCed version",
-    cur.banner = "Current version",
-    ignore.white.space = FALSE
+  diffPreviousVersions(
+    file = file_rel,
+    previous_version = version_qc,
+    current_version = version_new,
+    side_by_side = side_by_side,
+    ignore_white_space = ignore_white_space
   )
-  
 }

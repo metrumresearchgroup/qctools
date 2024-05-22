@@ -19,18 +19,12 @@ gitLog <- function(list_of_files, last_rev_only = FALSE) {
   
   for (file.i in list_of_files) {
     
-    file_abs <- fs::path_abs(path = file.i)
-    
-    if (!file.exists(file_abs)) {
-      stop(paste0("File does not exist '", file_abs, "'"), call. = FALSE)
-    }
-    
-    file_rel <- fs::path_rel(path = file_abs, start = logDir())
+    file_rel <- getRelativePath(file.i)
     
     p <- processx::run("git", c("--literal-pathspecs", "log", "--format=%H%x09%an%x09%aI%x09", "--", file_rel), wd = logDir())
     
     if (length(length(p$stdout)) != 1) {
-      stop(paste0("Could not find git history of '", file_abs, "'"), call. = FALSE)
+      stop(paste0("Could not find git history of '", file_rel, "'"), call. = FALSE)
     }
     
     all_history <- strsplit(unlist(strsplit(p$stdout, split = "\n")), split = "\t")
