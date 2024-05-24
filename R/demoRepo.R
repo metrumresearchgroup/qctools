@@ -159,7 +159,7 @@ demoRepo <- function(clean = TRUE) {
   
   pmtables::stable_save(
     x = pmtables::stable_long(
-      dplyr::bind_rows(
+      rbind(
         pmdata,
         pmdata,
         pmdata,
@@ -217,7 +217,7 @@ demoRepo <- function(clean = TRUE) {
   
   pmtables::stable_save(
     x = pmtables::stable_long(
-      dplyr::bind_rows(
+      rbind(
         pmdata,
         pmdata,
         pmdata,

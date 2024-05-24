@@ -18,11 +18,13 @@ Imports:
     processx,
     rprojroot,
     diffobj,
-    withr
+    withr,
+    rmarkdown,
+    pmtables,
+    tinytex
 Suggests: 
     testthat (>= 3.0.0),
-    knitr,
-    rmarkdown
+    knitr
 Config/testthat/edition: 3
 VignetteBuilder: 
     knitr
