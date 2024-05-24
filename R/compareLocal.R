@@ -59,15 +59,13 @@ compareLocal <- function(.path_base, .path_compare, .side_by_side = TRUE, .file_
   
   for (i in 1:nrow(figures_meta)) {
     
-    cli::cli_alert(paste0("Comparing: ", cli::col_blue(figures_meta$compname[i])))
+    message(paste0("Comparing: ", figures_meta$compname[i]))
     
     figures_meta$mtime1[i] <- as.POSIXct(format(file.info(figures_meta$path1[i])$mtime, tz = "UTC"), tz = "UTC")
     figures_meta$mtime2[i] <- as.POSIXct(format(file.info(figures_meta$path2[i])$mtime, tz = "UTC"), tz = "UTC")
   }
   
-  .dfpaths <- 
-    figures_meta %>% 
-    dplyr::select(c("path1", "mtime1", "mtime2", "path2", "compname"))
+  .dfpaths <- figures_meta[,c("path1", "mtime1", "mtime2", "path2", "compname")]
   
   buildCompare(
     .dfpaths = .dfpaths, 

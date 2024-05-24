@@ -20,4 +20,5 @@ compareModified <- function(.path, .side_by_side = TRUE, .file_exts = c("png", "
     .side_by_side = .side_by_side,
     .headings = c("Repo", "Local")
   )
-}
+
+  }
