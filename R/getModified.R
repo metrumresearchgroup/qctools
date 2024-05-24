@@ -3,7 +3,7 @@ getModified <- function(.path, .exts = NULL) {
   
   .abs_path <- fs::path_abs(.path)
   
-  status_run <- processx::run("git", c("status", "--porcelain"))$stdout
+  status_run <- processx::run("git", c("status", .abs_path, "--porcelain"))$stdout
   
   if (status_run == "") {
     stop("No files are returned when running `git status`")

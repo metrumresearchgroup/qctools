@@ -149,6 +149,32 @@ demoRepo <- function(clean = TRUE) {
   plot(1:10)
   grDevices::dev.off()
   
+  pmdata <- pmtables::stdata()
+  
+  pmtables::stable_save(
+    x = pmtables::stable(pmdata, panel = "STUDY"),
+    file = "example-table-1.tex",
+    dir = "deliv/table"
+  )
+  
+  pmtables::stable_save(
+    x = pmtables::stable_long(
+      dplyr::bind_rows(
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata
+      )
+    ),
+    file = "example-table-long-1.tex",
+    dir = "deliv/table"
+  )
+  
   processx::run("git", c("add", "."))
   processx::run("git", c("commit", "-m", "'add figures'", "--quiet"))
   
@@ -179,6 +205,33 @@ demoRepo <- function(clean = TRUE) {
   grDevices::pdf("deliv/figure/example-pdf4.pdf")
   plot(1:300)
   grDevices::dev.off()
+  
+  # Make an edit to the table
+  pmdata$N[1] <- "81"
+  
+  pmtables::stable_save(
+    x = pmtables::stable(pmdata),
+    file = "example-table-1.tex", 
+    dir = "deliv/table"
+  )
+  
+  pmtables::stable_save(
+    x = pmtables::stable_long(
+      dplyr::bind_rows(
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata,
+        pmdata
+      )
+    ),
+    file = "example-table-long-1.tex",
+    dir = "deliv/table"
+  )
   
   repoInitPath
 }
