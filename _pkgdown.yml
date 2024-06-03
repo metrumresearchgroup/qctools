@@ -31,3 +31,8 @@ reference:
     desc: Easily access information about Git repos
     contents:
     - gitLog
+  - title: Comparison Tools
+    desc: File version comparison tools
+    contents:
+    - compareFigures
+    - compareTables
