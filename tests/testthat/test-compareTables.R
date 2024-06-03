@@ -22,7 +22,7 @@ with_demoRepo({
       )
       
       expect_error({
-        compareFigures(.path_current = "deliv/figure/example png1.png")
+        compareTables(.path_current = "deliv/figure/example png1.png")
       })
       
     })

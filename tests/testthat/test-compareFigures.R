@@ -34,7 +34,7 @@ with_demoRepo({
       })
       
       expect_error({
-        compareLocal("deliv/figure", "deliv/figure", .file_exts = "doc")
+        compareFigures("deliv/figure", "deliv/figure", .file_types = "doc")
       })
       
     })
