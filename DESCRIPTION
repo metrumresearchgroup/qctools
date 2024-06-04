@@ -1,6 +1,6 @@
 Package: qctools
 Title: QC Management and Helpers 
-Version: 0.1.0.8001
+Version: 0.2.0
 Authors@R: 
     c(
     person(given = "Eric", family = "Anderson", email = "andersone@metrumrg.com", role = c("aut")),
