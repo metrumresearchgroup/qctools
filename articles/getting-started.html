@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qctools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@ to the repo.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">repo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/demoRepo.html">demoRepo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "/tmp/RtmpmlXhSR/qctools-demo-327458b8846"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "/tmp/RtmpASKaSk/qctools-demo-5aa96f595a50"</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -132,17 +132,17 @@ below.</p>
 <span><span class="co">## 2  script/pk/load-spec.R                       Initial-Assignment   anyone</span></span>
 <span><span class="co">## 3    script/combine-da.R                       Initial-Assignment   anyone</span></span>
 <span><span class="co">## 4   script/examp-txt.txt                       Initial-Assignment   anyone</span></span>
-<span><span class="co">## 5 script/data-assembly.R 64cad2501eb1cc7ebd442f419ebdf81ad15c5d4f michaelm</span></span>
-<span><span class="co">## 6  script/pk/load-spec.R 64cad2501eb1cc7ebd442f419ebdf81ad15c5d4f michaelm</span></span>
-<span><span class="co">## 7    script/combine-da.R 64cad2501eb1cc7ebd442f419ebdf81ad15c5d4f michaelm</span></span>
+<span><span class="co">## 5 script/data-assembly.R a92d6f6b6940959698e1da244f931d0d9a84c5a2 michaelm</span></span>
+<span><span class="co">## 6  script/pk/load-spec.R a92d6f6b6940959698e1da244f931d0d9a84c5a2 michaelm</span></span>
+<span><span class="co">## 7    script/combine-da.R a92d6f6b6940959698e1da244f931d0d9a84c5a2 michaelm</span></span>
 <span><span class="co">##                  datetime</span></span>
-<span><span class="co">## 1 2024-03-19 15:33:14 GMT</span></span>
-<span><span class="co">## 2 2024-03-19 15:33:14 GMT</span></span>
-<span><span class="co">## 3 2024-03-19 15:33:14 GMT</span></span>
-<span><span class="co">## 4 2024-03-19 15:33:14 GMT</span></span>
-<span><span class="co">## 5 2024-03-19 15:33:14 GMT</span></span>
-<span><span class="co">## 6 2024-03-19 15:33:14 GMT</span></span>
-<span><span class="co">## 7 2024-03-19 15:33:14 GMT</span></span></code></pre>
+<span><span class="co">## 1 2024-06-04 13:30:39 GMT</span></span>
+<span><span class="co">## 2 2024-06-04 13:30:39 GMT</span></span>
+<span><span class="co">## 3 2024-06-04 13:30:39 GMT</span></span>
+<span><span class="co">## 4 2024-06-04 13:30:39 GMT</span></span>
+<span><span class="co">## 5 2024-06-04 13:30:39 GMT</span></span>
+<span><span class="co">## 6 2024-06-04 13:30:39 GMT</span></span>
+<span><span class="co">## 7 2024-06-04 13:30:39 GMT</span></span></code></pre>
 <p>A few helpful definitions:</p>
 <ul>
 <li>
@@ -166,7 +166,7 @@ add a record to the QC log.</p>
 <p>Looking at the demo QC log, the first row is an example of a record
 that <code><a href="../reference/logAssign.html">logAssign()</a></code> will generate.</p>
 <pre><code><span><span class="co">##                     file             commit reviewer                datetime</span></span>
-<span><span class="co">## 1 script/data-assembly.R Initial-Assignment   anyone 2024-03-19 15:33:14 GMT</span></span></code></pre>
+<span><span class="co">## 1 script/data-assembly.R Initial-Assignment   anyone 2024-06-04 13:30:39 GMT</span></span></code></pre>
 <p>Notice that <code>commit</code> is set to
 <code>Initial-Assignment</code> since the file has only been added to
 the QC log and not actually QCed. Additionally, the reviewer is set to
@@ -188,10 +188,10 @@ to demonstrate the differences between <code><a href="../reference/logAssign.htm
 <code><a href="../reference/logAccept.html">logAccept()</a></code>.</p>
 <pre><code><span><span class="co">##                     file                                   commit reviewer</span></span>
 <span><span class="co">## 1 script/data-assembly.R                       Initial-Assignment   anyone</span></span>
-<span><span class="co">## 5 script/data-assembly.R 64cad2501eb1cc7ebd442f419ebdf81ad15c5d4f michaelm</span></span>
+<span><span class="co">## 5 script/data-assembly.R a92d6f6b6940959698e1da244f931d0d9a84c5a2 michaelm</span></span>
 <span><span class="co">##                  datetime</span></span>
-<span><span class="co">## 1 2024-03-19 15:33:14 GMT</span></span>
-<span><span class="co">## 5 2024-03-19 15:33:14 GMT</span></span></code></pre>
+<span><span class="co">## 1 2024-06-04 13:30:39 GMT</span></span>
+<span><span class="co">## 5 2024-06-04 13:30:39 GMT</span></span></code></pre>
 <p>Notice that the row created by <code><a href="../reference/logAccept.html">logAccept()</a></code> updated the
 <code>commit</code> value to the commit hash of the most recent
 modification to the file when it was QCed. The reviewer was updated from
@@ -211,9 +211,9 @@ criteria:</p>
 <p>Running <code><a href="../reference/logPending.html">logPending()</a></code> on the demo repo will result with
 the following output:</p>
 <pre><code><span><span class="co">##                     file last_author reviewer                datetime</span></span>
-<span><span class="co">## 2 script/data-assembly.R    michaelm michaelm 2024-03-19 15:33:15 GMT</span></span>
-<span><span class="co">## 3   script/examp-txt.txt    michaelm   anyone 2024-03-19 15:33:15 GMT</span></span>
-<span><span class="co">## 4  script/pk/load-spec.R    michaelm michaelm 2024-03-19 15:33:15 GMT</span></span></code></pre>
+<span><span class="co">## 2 script/data-assembly.R    michaelm michaelm 2024-06-04 13:30:43 GMT</span></span>
+<span><span class="co">## 3   script/examp-txt.txt    michaelm   anyone 2024-06-04 13:30:43 GMT</span></span>
+<span><span class="co">## 4  script/pk/load-spec.R    michaelm michaelm 2024-06-04 13:30:43 GMT</span></span></code></pre>
 <p>Every row returned indicates a file in need of QC. Along with the
 relative path of the file, the author and most recent reviewer of the
 file is provided. If the reviewer is marked as “anyone” then the file
