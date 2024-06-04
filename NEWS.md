@@ -1,3 +1,17 @@
+# qctools 0.2.0
+
+## New features and changes
+
+- `gitLog` updated to return the full history of commits for a file. (#21)
+
+- `diffOriginal` added to the package to view the difference between the current 
+   and first version of a file. (#22)
+
+- `diff` functions carried over from the `review` package. (#22)
+
+- `compare` functions brought over from the `review` package, including `compareFigures()` 
+  and `compareTables()`. (#23)
+
 # qctools 0.1.0
 
 ## New features and changes
