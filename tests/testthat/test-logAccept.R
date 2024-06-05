@@ -25,7 +25,7 @@ test_that("logAccept accepts files in the QC log and returns expected errors", {
     logAccept(new_file)
     log_upd <- logRead(path_to_qc_log)
     
-    expect_equal(log_upd$commit[log_upd$file == new_file], gitLog(new_file)[["last_commit"]])
-    expect_equal(log_upd$reviewer[log_upd$file == new_file], Sys.info()[["user"]])
+    expect_equal(sort(log_upd$commit[log_upd$file == new_file]), sort(gitLog(new_file)[["last_commit"]]))
+    expect_equal(unique(log_upd$reviewer[log_upd$file == new_file]), Sys.info()[["user"]])
   })
 })

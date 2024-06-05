@@ -39,7 +39,7 @@ getModified <- function(.path, .exts = NULL) {
     # Convert mtime
     info.i$mtime1 <- as.POSIXct(format(info.i$mtime1, tz = "UTC"), tz = "UTC")
     # Git info of the file
-    gitInfo.i <- gitLog(file.i)
+    gitInfo.i <- gitLog(file.i, last_rev_only = TRUE)
     
     compareInfo.i <- list(mtime2 = gitInfo.i$last_datetime)
     

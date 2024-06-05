@@ -9,7 +9,8 @@ with_demoRepo({
   
   test_that("diffPreviousRevisions outputs diff between two previous specified versions", {
     diffVer <- diffPreviousVersions(file = file1, previous_version = file1_ver2, current_version = file1_ver1)
-    expect_true(diffVer@target[2] != diffVer@current[2])
+    expect_true(length(diffVer@target) + 1 == length(diffVer@current))
+    expect_true(diffVer@target[2] == diffVer@current[2])
     expect_equal(diffVer@current[2], "source(here::here(\"script\", \"data-assembly\", \"da-functions.R\"))")
     expect_equal(diffVer@target[1], diffVer@current[1])
     expect_equal(diffVer@current[10], "derived$tv$dosing <- ex_1")

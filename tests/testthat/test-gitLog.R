@@ -25,7 +25,7 @@ test_that("gitLog returns the commit the file was last modified", {
     
     setwd("script")
     
-    gitFile3 <- gitLog("examp-yaml.yaml")
+    gitFile3 <- gitLog("examp-yaml.yaml", last_rev_only = TRUE)
     expect_equal(nchar(gitFile3$last_commit), 40)
     
   })
@@ -37,7 +37,7 @@ test_that("gitLog returns all commits for a file", {
     gitFile1 <- gitLog(file1)
     gitFile2 <- gitLog(file2)
     
-    expect_true(nrow(gitFile1) == 2)
+    expect_true(nrow(gitFile1) == 4)
     expect_true(nrow(gitFile2) == 2)
   })
 })

@@ -3,7 +3,7 @@ test_that("diffOriginal provides visual diff of files with differences", {
   with_demoRepo({
     x <- diffOriginal("script/data-assembly.R")
     
-    expect_equal(length(x@target) + 5, length(x@current))
+    expect_equal(length(x@target) + 8, length(x@current))
     expect_equal(x@tar.dat$orig[1], x@cur.dat$orig[1])
     
     y <- diffOriginal("script/pk/load-spec.R")
