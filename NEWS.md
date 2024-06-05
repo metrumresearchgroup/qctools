@@ -1,3 +1,9 @@
+# qctools 0.2.1
+
+## Bug fixes
+
+- `getModified` updated to only grab last commit when calling `gitLog`. (#26)
+
 # qctools 0.2.0
 
 ## New features and changes
