@@ -216,10 +216,11 @@ demoRepo <- function(clean = TRUE) {
   writeLines(
     c("The following tasks are suggested to gain familiarity with the qctools package:",
       '- run `diffQced()` on "script/pk/load-spec.R" and "script/data-assembly.R"',
-      '- run `renderQCSummary()`',
-      '- use `logAssign()` to add "script/examp-txt.txt" to the QC log',
+      '- use `logAssign()` to add "script/data-prep.R" to the QC log',
       '- run `logPending()` to see what scripts are in need of QC',
-      '- use `logAccept()` to sign off on any scripts with pending QC'),
+      '- use `logAccept()` to sign off on any scripts with pending QC',
+      '- run `compareFigures()` on "deliv/figure" to see modifications made to figures',
+      '- run `compareTables()` on "deliv/table" to see modifications made to tables'),
     "README.md"
   )
   
