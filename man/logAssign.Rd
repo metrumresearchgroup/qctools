@@ -22,7 +22,7 @@ will allow the file to appear on the output of \code{logPending()}.
 \examples{
 with_demoRepo({
   logAssign(
-    file = "script/examp-yaml.yaml", 
+    file = "script/data-prep.R", 
     reviewer = "person1")
 })
 

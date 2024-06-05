@@ -3,7 +3,7 @@ test_that("diffQced provides visual diff of files with differences", {
   with_demoRepo({
     x <- diffQced("script/data-assembly.R")
     
-    expect_equal(length(x@target) + 5, length(x@current))
+    expect_equal(length(x@target) + 8, length(x@current))
     expect_equal(x@tar.dat$orig[1], x@cur.dat$orig[1])
     
     y <- diffQced("script/pk/load-spec.R")

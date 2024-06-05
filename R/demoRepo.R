@@ -60,6 +60,15 @@ demoRepo <- function(clean = TRUE) {
   
   writeLines(
     c(
+      "library(tidyverse)",
+      "studies <- list()",
+      'studies$pk_abc <- readr::read_rds(here::here("data", "derived", "studies", "pk-abc.rds"))'
+    ),
+    "script/data-prep.R"
+  )
+  
+  writeLines(
+    c(
       'pk_spec <- yspec::load_spec(here::here("script", "script/examp-yaml.yaml"))'
     ),
     "script/pk/load-spec.R"
@@ -121,9 +130,91 @@ demoRepo <- function(clean = TRUE) {
   
   processx::run("git", c("add", "."))
   processx::run("git", c("commit", "-m", "'modify data-assembly'", "--quiet"))
+  
+  writeLines(
+    c(
+      "library(tidyverse)",
+      'source(here::here("script", "data-assembly", "da-functions.R"))',
+      'src_abc <- mrgda::read_src_dir(here::here("data", "source", "STUDY-ABC"))',
+      "derived <- list(sl = list(),tv = list())",
+      'dm_0 <- src_abc$dm %>% filter(ACTARM != "Screen Failure")',
+      "derived$sl$dm <- dm_0",
+      'pk_0 <- src_abc$pc %>% filter(PCTEST == "TEST OF INTEREST")',
+      "derived$tv$pc <- pk_0",
+      'ex_1 <- src_abc$ex %>% filter(EXTRT == "DRUG OF INTEREST")',
+      "derived$tv$dosing <- ex_1",
+      "lb_0 <- src_abc$lb",
+      "lb_1 <- lb_0 %>% filter(LBTEST == 'Test of interest')"
+    ),
+    "script/data-assembly.R"
+  )
+  
+  writeLines(
+    c(
+      "library(tidyverse)",
+      "studies <- list()",
+      'studies$pk_abc <- readr::read_rds(here::here("data", "derived", "studies", "pk-abc.rds"))',
+      "pk_0 <- bind_rows(studies) %>% arrange(USUBJID, DATETIME)",
+      "pk_out <- pk_0"
+    ),
+    "script/combine-da.R"
+  )
+  
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify data-assembly'", "--quiet"))
+  
+  writeLines(
+    c(
+      "library(tidyverse)",
+      "studies <- list()",
+      'studies$pk_abc <- readr::read_rds(here::here("data", "derived", "studies", "pk-abc.rds"))',
+      "pk_0 <- bind_rows(studies) %>% arrange(USUBJID, DATETIME)",
+      "pk_out <- pk_0",
+      "yspec::ys_check(pk_out, spec)"
+    ),
+    "script/combine-da.R"
+  )
+  
+  writeLines(c('This is the second version of the txt file'),
+             "script/examp-txt.txt")
+  
+  writeLines(c("This is the second version of the yaml file"),
+             "script/examp-yaml.yaml")
+  
+  logAccept("script/examp-yaml.yaml")
+  
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify data-assembly'", "--quiet"))
+  
+  writeLines(c('This is the third version of the txt file'),
+             "script/examp-txt.txt")
+  
+  writeLines(
+    c(
+      "library(tidyverse)",
+      'source(here::here("script", "data-assembly", "da-functions.R"))',
+      'src_abc <- mrgda::read_src_dir(here::here("data", "source", "STUDY-ABC"))',
+      "derived <- list(sl = list(),tv = list())",
+      'dm_0 <- src_abc$dm %>% filter(ACTARM != "Screen Failure")',
+      "derived$sl$dm <- dm_0",
+      'pk_0 <- src_abc$pc %>% filter(PCTEST == "TEST OF INTEREST")',
+      "derived$tv$pc <- pk_0",
+      'ex_1 <- src_abc$ex %>% filter(EXTRT == "DRUG OF INTEREST")',
+      "derived$tv$dosing <- ex_1",
+      "lb_0 <- src_abc$lb",
+      "lb_1 <- lb_0 %>% filter(LBTEST == 'Test of interest')",
+      "vs_0 <- src_abc$vs"
+    ),
+    "script/data-assembly.R"
+  )
+  
+  logAccept("script/combine-da.R")
+  
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify data-assembly'", "--quiet"))
 
   writeLines(
-    c("The following tasks are suggested to gain familiarity with the review package:",
+    c("The following tasks are suggested to gain familiarity with the qctools package:",
       '- run `diffQced()` on "script/pk/load-spec.R" and "script/data-assembly.R"',
       '- run `renderQCSummary()`',
       '- use `logAssign()` to add "script/examp-txt.txt" to the QC log',
@@ -177,6 +268,28 @@ demoRepo <- function(clean = TRUE) {
   
   processx::run("git", c("add", "."))
   processx::run("git", c("commit", "-m", "'add figures'", "--quiet"))
+  
+  Sys.sleep(1)
+  
+  grDevices::pdf("deliv/figure/example-pdf1.pdf", width = 8, height = 11)
+  plot(1:25)
+  grDevices::dev.off()
+  
+  grDevices::png("deliv/figure/example png1.png")
+  plot(1:25)
+  grDevices::dev.off()
+  
+  grDevices::pdf("deliv/figure/example-pdf2.pdf", width = 11, height = 8)
+  plot(5:25)
+  plot(1:2500)
+  grDevices::dev.off()
+  
+  grDevices::pdf("deliv/figure/example-pdf3.pdf")
+  plot(1:25)
+  grDevices::dev.off()
+  
+  processx::run("git", c("add", "."))
+  processx::run("git", c("commit", "-m", "'modify figures'", "--quiet"))
   
   Sys.sleep(1)
   

@@ -9,7 +9,9 @@ test_that("logAssign adds files to QC log with expected values", {
     expect_true(unique(log$commit[log$reviewer == "anyone"]) == "Initial-Assignment")
     expect_true(unique(log$reviewer[log$commit == "Initial-Assignment"]) == "anyone")
     
-    new_file <- "script/examp-yaml.yaml"
+    writeLines("New file", "script/newfile.txt")
+    
+    new_file <- "script/newfile.txt"
     
     logAssign(new_file)
     log_upd <- logRead(path_to_qc_log)
