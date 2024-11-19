@@ -6,12 +6,12 @@ Authors@R:
     person(given = "Eric", family = "Anderson", email = "andersone@metrumrg.com", role = c("aut")),
     person(given = "Michael", family = "McDermott", email = "michaelm@metrumrg.com", role = c("cre")))
 Description: Create, append and review the QC log. Provides helper functions for completing QC tasks.
-URL: https://github.com/metrumresearchgroup/qctools
+URL: https://github.com/metrumresearchgroup/qctools, https://metrumresearchgroup.github.io/qctools
 BugReports: https://github.com/metrumresearchgroup/qctools/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports: 
     utils,
     fs,
