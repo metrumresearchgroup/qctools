@@ -19,11 +19,17 @@ library(DT)
 By integrating with Git, `qctools` automatically detects when a script has been modified and flags it for re-evaluation. It provides functions to assign reviewers, check pending work, and summarize the QC status of all scripts.
 
 The core functions of `qctools` are:
+
 - **`logCreate()`**: Creates the QC log.
+
 - **`logAssign()`**: Assigns scripts to reviewers for QC.
+
 - **`logAccept()`**: Marks scripts as reviewed and accepted.
+
 - **`logPending()`**: Lists scripts that still need QC.
+
 - **`logSummary()`**: Provides a high-level summary of the QC status of all scripts.
+
 
 # Core Functions
 
