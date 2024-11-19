@@ -40,10 +40,10 @@ For demonstration, assume the `QClog.csv` already contains some entries. Below i
 
 ```{r, echo=FALSE}
 log <- data.frame(
-  file = c("script/analysis.R", "script/data-prep.R", "script/model-fitting.R", "script/visualize.R"),
-  commit = c("Initial-Assignment", "abc1234", "Initial-Assignment", "def5678"),
-  reviewer = c("Jane Doe", "John Smith", "Alice Johnson", "Bob Miller"),
-  datetime = c("2024-11-19 10:00:00", "2024-11-19 11:30:00", "2024-11-19 12:00:00", "2024-11-19 13:00:00")
+  file = c("script/analysis.R", "script/data-prep.R", "script/visualize.R"),
+  commit = c("Initial-Assignment", "abc1234", "def5678"),
+  reviewer = c("Jane Doe", "John Smith", "Bob Miller"),
+  datetime = c("2024-11-19 10:00:00", "2024-11-19 11:30:00", "2024-11-19 13:00:00")
 )
 datatable(log, rownames = FALSE, options = list(dom = 't'))
 ```
@@ -59,7 +59,6 @@ logAssign(file = "script/model-fitting.R", reviewer = "Alice Johnson")
 ```
 
 ```{r, echo=FALSE}
-log <- log[log$file != "script/model-fitting.R", ]  # Remove duplicate if exists
 log <- rbind(log, data.frame(
   file = "script/model-fitting.R",
   commit = "Initial-Assignment",
@@ -79,10 +78,10 @@ datatable(
 ```
 
 ## `logAccept()`
-Marks a file as accepted after review, recording the latest commit and reviewer details.
+Marks a file as accepted after review, recording the latest commit and reviewer details. The new row for acceptance will appear alongside the assigned row.
 
 ### Example:
-Suppose `script/model-fitting.R` is reviewed and accepted by `Alice Johnson`. The log now reflects the acceptance:
+Suppose `script/model-fitting.R` is reviewed and accepted by `Alice Johnson`. The log now reflects both the assignment and the acceptance:
 
 ```{r eval=FALSE}
 logAccept(file = "script/model-fitting.R")
@@ -101,9 +100,9 @@ datatable(
   options = list(dom = 't')
 ) %>%
   formatStyle(
-    'file',
+    'datetime',
     target = 'row',
-    backgroundColor = styleEqual("script/model-fitting.R", "#c7e9c0")
+    backgroundColor = styleEqual("2024-11-19 15:00:00", "#c7e9c0")
   )
 ```
 
