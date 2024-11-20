@@ -1,72 +1,145 @@
+# Getting Started with qctools
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-<!-- badges: start -->
+`qctools` is a toolkit for managing the quality control (QC) process for scripts. It tracks the assignment, review, and acceptance of scripts using a centralized log file, **`QClog.csv`**. This log ensures that every script is reviewed systematically, with clear records of modifications and approvals.
 
-[![Build
-Status](https://github.com/metrumresearchgroup/qctools/actions/workflows/main.yaml/badge.svg)](https://github.com/metrumresearchgroup/qctools/actions/workflows/main.yaml)
-<!-- badges: end -->
+By integrating with Git, `qctools` automatically detects when a script has been modified and flags it for re-evaluation. It provides functions to assign reviewers, check pending work, and summarize the QC status of all scripts.
 
-# qctools
+The core functions of `qctools` are:
 
-*Note:* This package is still in an experimental stage of development
-and backward incompatible changes may be made. Please see
-[`NEWS.md`](https://github.com/metrumresearchgroup/qctools/blob/main/NEWS.md)
-for details on any changes and updates.
+- **`logCreate()`**: Creates the QC log.
+- **`logAssign()`**: Assigns scripts to reviewers for QC.
+- **`logAccept()`**: Marks scripts as reviewed and accepted.
+- **`logPending()`**: Lists scripts that still need QC.
+- **`logSummary()`**: Provides a high-level summary of the QC status of all scripts.
 
-## Overview
+---
 
-`qctools` provides helpful tools for organizing and performing quality
-control (QC) tasks.
+# Core Functions
 
-With `qctools`, you are able to create and manage a QC log to track the
-QC history of all relevant files in your repository. While performing
-QC, `diffQced()` will show all the changes to the file since it had last
-been QCed.
+## `logCreate()`
 
-## Setup
+The first step is to create the QC log file using `logCreate()`:
 
-To start using `qctools`, run `logCreate()`. This will create the QC log
-in the form of `QClog.csv`.
+```r
+library(qctools)
+logCreate()
+```
 
-You can use `logAssign()` to add scripts needing QC to the QC log. After
-completing QC, run `logAccept()`. This will add a row to the `QClog.csv`
-recording the commit hash from the commit where the file was last
-modified.
+## Example Log (Pre-existing)
 
-To identify which files need to be QCed, you can run `logPending()`. You
-can also run `logSummary()` to see the QC status of all files in the
-`QClog.csv` file.
+For demonstration, assume the `QClog.csv` already contains some entries. Below is the initial log:
 
-## Documentation
+| file               | commit             | reviewer    | datetime            |
+|--------------------|--------------------|-------------|---------------------|
+| script/analysis.R  | Initial-Assignment | Jane Doe    | 2024-11-19 10:00:00 |
+| script/data-prep.R | abc1234            | John Smith  | 2024-11-19 11:30:00 |
+| script/visualize.R | def5678            | Bob Miller  | 2024-11-19 13:00:00 |
 
-Public documentation of all functions is hosted at
-<https://metrumresearchgroup.github.io/qctools/>
+## `logAssign()`
 
-## Development
+Assigns a file for QC, optionally specifying a reviewer.
 
-`qctools` uses [pkgr](https://github.com/metrumresearchgroup/pkgr) to
-manage development dependencies and
-[renv](https://rstudio.github.io/renv/) to provide isolation. To
-replicate this environment,
+### Example
 
-1.  clone the repo
+Suppose we assign `script/model-fitting.R` to `Alice Johnson` for QC. Below is the code for this operation and the updated log:
 
-2.  install pkgr
+```r
+logAssign(file = "script/model-fitting.R", reviewer = "Alice Johnson")
+```
 
-3.  open package in an R session and run `renv::init(bare = TRUE)`
+| file                   | commit             | reviewer      | datetime            |
+|------------------------|--------------------|---------------|---------------------|
+| script/analysis.R      | Initial-Assignment | Jane Doe      | 2024-11-19 10:00:00 |
+| script/data-prep.R     | abc1234            | John Smith    | 2024-11-19 11:30:00 |
+| script/visualize.R     | def5678            | Bob Miller    | 2024-11-19 13:00:00 |
+| <b style='color:green'>script/model-fitting.R</b> | <b style='color:green'>Initial-Assignment</b> | <b style='color:green'>Alice Johnson</b> | <b style='color:green'>2024-11-19 14:00:00</b> |
 
-    -   install `renv` \> 0.8.3-4 into default `.libPaths()` if not
-        already installed
+## `logAccept()`
 
-4.  run `pkgr install` in terminal within package directory
+Marks a file as accepted after review, recording the latest commit and reviewer details. The new row for acceptance will appear alongside the assigned row.
 
-5.  restart session
+### Example
 
-Then, launch R with the repo as the working directory (open the project
-in RStudio). renv will activate and find the project library.
+Suppose `script/model-fitting.R` is reviewed and accepted by `Alice Johnson`. The log now reflects both the assignment and the acceptance:
 
-## Getting help
+```r
+logAccept(file = "script/model-fitting.R")
+```
 
-If you encounter a clear bug, please file an issue with a minimal
-reproducible example on [the `qctools/issues`
-page](https://github.com/metrumresearchgroup/qctools/issues).
+| file                   | commit             | reviewer      | datetime            |
+|------------------------|--------------------|---------------|---------------------|
+| script/analysis.R      | Initial-Assignment | Jane Doe      | 2024-11-19 10:00:00 |
+| script/data-prep.R     | abc1234            | John Smith    | 2024-11-19 11:30:00 |
+| script/visualize.R     | def5678            | Bob Miller    | 2024-11-19 13:00:00 |
+| script/model-fitting.R | Initial-Assignment | Alice Johnson | 2024-11-19 14:00:00 |
+| <b style='color:green'>script/model-fitting.R</b> | <b style='color:green'>def5678</b>            | <b style='color:green'>Alice Johnson</b> | <b style='color:green'>2024-11-19 15:00:00</b> |
+
+## `logPending()`
+
+Lists files that require QC because they are either:
+
+1. Assigned but not yet reviewed.
+2. Modified since the last QC.
+
+### Example
+
+Here are the files still pending QC:
+
+| file              | last_author | reviewer   | datetime            |
+|-------------------|-------------|------------|---------------------|
+| script/analysis.R | Bob Miller  | Jane Doe   | 2024-11-19 10:00:00 |
+
+## `logSummary()`
+
+Provides a summary of the QC status of all files in the log.
+
+### Example
+
+Here is the summary of the QC status:
+
+| file                | status                 |
+|---------------------|------------------------|
+| script/analysis.R   | Modified - needs QC    |
+| script/data-prep.R  | Fully QCed             |
+| script/model-fitting.R | Fully QCed          |
+| script/visualize.R  | Fully QCed             |
+
+---
+
+# Workflow Example
+
+1. **Create the log**:
+
+   ```r
+   logCreate()
+   ```
+
+2. **Assign files for review**:
+
+   ```r
+   logAssign(file = "script/model-fitting.R", reviewer = "Alice Johnson")
+   ```
+
+3. **Mark files as accepted after review**:
+
+   ```r
+   logAccept(file = "script/model-fitting.R")
+   ```
+
+4. **Check pending files**:
+
+   ```r
+   logPending()
+   ```
+
+5. **View a summary of the QC process**:
+
+   ```r
+   logSummary()
+   ```
+   
+---
+
+# Getting Help
+
+If you encounter a clear bug, please file an issue with a minimal reproducible example on [the `qctools/issues` page](https://github.com/metrumresearchgroup/qctools/issues).
