@@ -84,20 +84,20 @@
 <div class="section level1">
 <div class="page-header"><h1 id="getting-started-with-qctools">Getting Started with qctools<a class="anchor" aria-label="anchor" href="#getting-started-with-qctools"></a>
 </h1></div>
-<p><code>qctools</code> is a toolkit for managing the quality control (QC) process for scripts. It tracks the assignment, review, and acceptance of scripts using a centralized log file, <strong><code>QClog.csv</code></strong>. This log ensures that every script is reviewed systematically, with clear records of modifications and approvals.</p>
-<p>By integrating with Git, <code>qctools</code> automatically detects when a script has been modified and flags it for re-evaluation. It provides functions to assign reviewers, check pending work, and summarize the QC status of all scripts.</p>
+<p><code>qctools</code> is a toolkit for ensuring critical files are reviewed on a project. It manages the quality control (QC) process by tracking the assignment and acceptance of files using a centralized log file, <strong><code>QClog.csv</code></strong>. Along with tracking QC, <code>qctools</code> provides additional tooling for code review and comparing outputs such as figures and tables.</p>
+<p>By integrating with Git, <code>qctools</code> automatically detects when a file has been modified and flags it for re-evaluation. It provides functions to check outstanding QC and summarize the QC status of all files.</p>
 <p>The core functions of <code>qctools</code> are:</p>
 <ul>
 <li>
 <strong><code><a href="reference/logCreate.html">logCreate()</a></code></strong>: Creates the QC log.</li>
 <li>
-<strong><code><a href="reference/logAssign.html">logAssign()</a></code></strong>: Assigns scripts to reviewers for QC.</li>
+<strong><code><a href="reference/logAssign.html">logAssign()</a></code></strong>: Assigns files to reviewers for QC.</li>
 <li>
-<strong><code><a href="reference/logAccept.html">logAccept()</a></code></strong>: Marks scripts as reviewed and accepted.</li>
+<strong><code><a href="reference/logAccept.html">logAccept()</a></code></strong>: Marks files as reviewed and accepted.</li>
 <li>
-<strong><code><a href="reference/logPending.html">logPending()</a></code></strong>: Lists scripts that still need QC.</li>
+<strong><code><a href="reference/logPending.html">logPending()</a></code></strong>: Lists files that still need QC.</li>
 <li>
-<strong><code><a href="reference/logSummary.html">logSummary()</a></code></strong>: Provides a high-level summary of the QC status of all scripts.</li>
+<strong><code><a href="reference/logSummary.html">logSummary()</a></code></strong>: Provides a high-level summary of the QC status of all files.</li>
 </ul>
 <hr>
 </div>
@@ -108,20 +108,19 @@
 <h2 id="logcreate">
 <code>logCreate()</code><a class="anchor" aria-label="anchor" href="#logcreate"></a>
 </h2>
-<p>The first step is to create the QC log file using <code><a href="reference/logCreate.html">logCreate()</a></code>:</p>
+<p>To create a QC log, use <code><a href="reference/logCreate.html">logCreate()</a></code>. This will generate the <code>QClog.csv</code> file at the top level of the project.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/metrumresearchgroup/qctools" class="external-link">qctools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/logCreate.html">logCreate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="example-log-pre-existing">Example Log (Pre-existing)<a class="anchor" aria-label="anchor" href="#example-log-pre-existing"></a>
-</h2>
-<p>For demonstration, assume the <code>QClog.csv</code> already contains some entries. Below is the initial log:</p>
+<div class="section level3">
+<h3 id="example-log-pre-existing">Example Log (Pre-existing)<a class="anchor" aria-label="anchor" href="#example-log-pre-existing"></a>
+</h3>
+<p>For demonstration, assume the <code>QClog.csv</code> already contains some entries.</p>
 <table class="table">
 <colgroup>
 <col width="27%">
 <col width="27%">
-<col width="17%">
+<col width="16%">
 <col width="28%">
 </colgroup>
 <thead><tr class="header">
@@ -152,23 +151,20 @@
 </tbody>
 </table>
 </div>
+</div>
 <div class="section level2">
 <h2 id="logassign">
 <code>logAssign()</code><a class="anchor" aria-label="anchor" href="#logassign"></a>
 </h2>
-<p>Assigns a file for QC, optionally specifying a reviewer.</p>
-<div class="section level3">
-<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
-</h3>
-<p>Suppose we assign <code>script/model-fitting.R</code> to <code>Alice Johnson</code> for QC. Below is the code for this operation and the updated log:</p>
+<p>Suppose we are the author of <code>script/model-fitting.R</code> and it is ready for review. We can assign <code>script/model-fitting.R</code> to <code>Alice Johnson</code> for QC. Below is the code for this operation and the updated log.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/logAssign.html">logAssign</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"script/model-fitting.R"</span>, reviewer <span class="op">=</span> <span class="st">"Alice Johnson"</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="30%">
-<col width="25%">
-<col width="18%">
-<col width="26%">
+<col width="28%">
+<col width="23%">
+<col width="23%">
+<col width="24%">
 </colgroup>
 <thead><tr class="header">
 <th>file</th>
@@ -204,24 +200,19 @@
 </tbody>
 </table>
 </div>
-</div>
 <div class="section level2">
 <h2 id="logaccept">
 <code>logAccept()</code><a class="anchor" aria-label="anchor" href="#logaccept"></a>
 </h2>
-<p>Marks a file as accepted after review, recording the latest commit and reviewer details. The new row for acceptance will appear alongside the assigned row.</p>
-<div class="section level3">
-<h3 id="example-1">Example<a class="anchor" aria-label="anchor" href="#example-1"></a>
-</h3>
-<p>Suppose <code>script/model-fitting.R</code> is reviewed and accepted by <code>Alice Johnson</code>. The log now reflects both the assignment and the acceptance:</p>
+<p>After <code>Alice Johnson</code> reviews <code>script/model-fitting.R</code>, she can accept the file by using <code><a href="reference/logAccept.html">logAccept()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/logAccept.html">logAccept</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"script/model-fitting.R"</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="30%">
-<col width="25%">
-<col width="18%">
-<col width="26%">
+<col width="28%">
+<col width="23%">
+<col width="23%">
+<col width="24%">
 </colgroup>
 <thead><tr class="header">
 <th>file</th>
@@ -256,27 +247,23 @@
 </tr>
 <tr class="odd">
 <td><b style="color:green">script/model-fitting.R</b></td>
-<td><b style="color:green">def5678</b></td>
+<td><b style="color:green">ghi9012</b></td>
 <td><b style="color:green">Alice Johnson</b></td>
 <td><b style="color:green">2024-11-19 15:00:00</b></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
 <div class="section level2">
 <h2 id="logpending">
 <code>logPending()</code><a class="anchor" aria-label="anchor" href="#logpending"></a>
 </h2>
-<p>Lists files that require QC because they are either:</p>
+<p>Suppose we want to view all files with oustanding QC needs. <code><a href="reference/logPending.html">logPending()</a></code> lists files that require QC because they are either:</p>
 <ol style="list-style-type: decimal">
 <li>Assigned but not yet reviewed.</li>
 <li>Modified since the last QC.</li>
 </ol>
-<div class="section level3">
-<h3 id="example-2">Example<a class="anchor" aria-label="anchor" href="#example-2"></a>
-</h3>
-<p>Here are the files still pending QC:</p>
+<p>An example output of <code><a href="reference/logPending.html">logPending()</a></code> is shown below.</p>
 <table class="table">
 <thead><tr class="header">
 <th>file</th>
@@ -292,16 +279,11 @@
 </tr></tbody>
 </table>
 </div>
-</div>
 <div class="section level2">
 <h2 id="logsummary">
 <code>logSummary()</code><a class="anchor" aria-label="anchor" href="#logsummary"></a>
 </h2>
-<p>Provides a summary of the QC status of all files in the log.</p>
-<div class="section level3">
-<h3 id="example-3">Example<a class="anchor" aria-label="anchor" href="#example-3"></a>
-</h3>
-<p>Here is the summary of the QC status:</p>
+<p>If we want to see the QC status of all files in the log, we can use <code><a href="reference/logSummary.html">logSummary()</a></code> to do so.</p>
 <table class="table">
 <thead><tr class="header">
 <th>file</th>
@@ -329,7 +311,6 @@
 <hr>
 </div>
 </div>
-</div>
 <div class="section level1">
 <h1 id="workflow-example">Workflow Example<a class="anchor" aria-label="anchor" href="#workflow-example"></a>
 </h1>
@@ -350,12 +331,12 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/logAccept.html">logAccept</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"script/model-fitting.R"</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
-<p><strong>Check pending files</strong>:</p>
+<p><strong>Display files with oustanding QC</strong>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/logPending.html">logPending</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
-<p><strong>View a summary of the QC process</strong>:</p>
+<p><strong>View the QC status of all files in the QC log</strong>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/logSummary.html">logSummary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </li>
