@@ -1,6 +1,6 @@
 Package: qctools
 Title: QC Management and Helpers 
-Version: 0.2.1.8000
+Version: 0.2.1.8001
 Authors@R: 
     c(
     person(given = "Eric", family = "Anderson", email = "andersone@metrumrg.com", role = c("aut")),
@@ -13,6 +13,8 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
+    dplyr,
+    magrittr (>= 2.0.3),
     utils,
     fs,
     processx,
@@ -21,7 +23,8 @@ Imports:
     withr,
     rmarkdown,
     pmtables,
-    tinytex
+    tinytex,
+    tidyr
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
