@@ -2,7 +2,7 @@
 
 ## New features and changes
 
-- `repoHistory` added to return all commits made to every file.
+- `repoHistory` added to return all commits made to every file. (#32)
 
 # qctools 0.2.1
 
