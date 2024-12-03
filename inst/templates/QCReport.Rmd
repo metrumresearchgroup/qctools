@@ -1,0 +1,54 @@
+---
+title: "QC Report"
+subtitle: "`r params$project`"
+date: "`r format(Sys.time(), '%d %B, %Y %H:%M %Z')`"
+params:
+  project: ""
+  logSum: NULL
+  qcLog: NULL
+output: pdf_document
+header-includes:
+    - \usepackage{caption}
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r message=FALSE, warning=FALSE}
+
+qc_info <-
+  params$qcLog %>% 
+  dplyr::group_by(file) %>% 
+  dplyr::slice(dplyr::n()) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::transmute(
+    file,
+    lastQCer = reviewer,
+    QCdate = as.Date(datetime),
+    QCcommit = commit
+  )
+
+params$logSum %>% 
+  dplyr::mutate(
+    status = dplyr::if_else(status == "Fully QCed", "QCed", "Needs QC")
+  ) %>% 
+  dplyr::left_join(qc_info, by = "file") %>% 
+  dplyr::mutate(
+    `QC date` = dplyr::if_else(status == "QCed", as.character(QCdate), NA_character_),
+    `QC date` = as.Date(`QC date`),
+    `QC commit` = dplyr::if_else(status == "QCed", substr(QCcommit, 1, 7), NA_character_),
+    status = factor(status, levels = c("Needs QC", "QCed"))
+  ) %>% 
+  dplyr::select(file, status, `QC date`, `QC commit`) %>% 
+  dplyr::rename(
+    File = file,
+    Status = status,
+    `QCed...commit` = `QC commit`
+  ) %>% 
+  dplyr::arrange(Status) %>% 
+  pmtables::st_new() %>% 
+  pmtables::st_left(File = pmtables::col_ragged(8)) %>%
+  pmtables::stable_long() %>%
+  pmtables::st_asis()
+```
