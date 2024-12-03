@@ -7,12 +7,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette provides detailed documentation and usage examples for generating QC summary documents with the the `qctools` package. The functions, `renderQCSummary()` and `renderQCReport()` generate documents containing QC summary tables. These are intended to aid in quality control and prioritizing QC resourcing.
+This vignette provides detailed documentation and usage examples for generating QC summary documents with the the `qctools` package. The functions, `renderQCSummary()` and `renderQCReport()`, generate documents containing QC summary tables. These are intended to aid in quality control and prioritizing QC resourcing.
 
 ## Table of Contents
 
--   **`renderQCSummary()`**: Generates a document with summary tables to assist with QC efforts
--   **`renderQCReport()`**: Generates a document to provide the QC status of files on the project
+-   **`renderQCSummary()`**: Generates a document with summary tables of outstanding QC information
+-   **`renderQCReport()`**: Generates a document that provides the QC status of files on a project
 
 ---
 
@@ -54,8 +54,7 @@ QCers is included for these files.
 | script/eda-figures.R     | Alice Johnson | 8                        |
 | script/pk/check-sum.yaml | Alice Johnson | 20                       |
 
-Each file that appears in this table has not been assigned in the `QClog.csv` file. This summary is intended to help identify
-files that have been recently modified (within 20 days) that should be added to the `QClog.csv` file.
+This summary is intended to identify files that have been recently modified (within the last 20 days) but have not been assigned in the `QClog.csv` file.
 
 ---
 
@@ -65,20 +64,18 @@ The `renderQCReport()` generates a QC status summary of all files in the `QClog.
 
 ### Usage
 
-#### Compare with a Specific Previous Commit
-
 ```r
 renderQCReport()
 ```
 
 **Output:**
 
-![Output of `renderQCReport()`: The project name and date/time the report was generated is shown above the summary table. The table shows the QC status of all files in the `QClog.csv` file. If a file is up to date with QC, the date and commit hash of when the QC was completed is recorded.](figures/qc-report.png){width=700}
+![Output of `renderQCReport()`: The project name and date/time the report was generated is shown above the summary table. The table shows the QC status of all files in the `QClog.csv` file. If a file is up to date with QC, the date and commit hash of when the QC was completed is shown.](figures/qc-report.png){width=700}
 
 ---
 
 # Additional Notes
 
-- **Saving documents**: Users can specify a directory to save either QC document to using the `.output_dir` parameter.
+- **Saving documents**: Users can save either QC document to a specific directory using the `.output_dir` parameter.
 
 ---
