@@ -1,7 +1,7 @@
 #' Generate comparison between sets of tables
 #' 
 #' @description 
-#' Generate a html document showing two versions of a figure (tex).
+#' Generate a html document showing two versions of a table (tex).
 #' If two paths are provided, the local versions of both will be used.
 #' If only one path is provided, the comparison will show the local 
 #' versus last checked in version.
