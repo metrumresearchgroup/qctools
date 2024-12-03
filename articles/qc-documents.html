@@ -96,7 +96,7 @@
 <p>This vignette provides detailed documentation and usage examples for
 generating QC summary documents with the the <code>qctools</code>
 package. The functions, <code><a href="../reference/renderQCSummary.html">renderQCSummary()</a></code> and
-<code><a href="../reference/renderQCReport.html">renderQCReport()</a></code> generate documents containing QC summary
+<code><a href="../reference/renderQCReport.html">renderQCReport()</a></code>, generate documents containing QC summary
 tables. These are intended to aid in quality control and prioritizing QC
 resourcing.</p>
 <div class="section level3">
@@ -105,10 +105,10 @@ resourcing.</p>
 <ul>
 <li>
 <strong><code><a href="../reference/renderQCSummary.html">renderQCSummary()</a></code></strong>: Generates a
-document with summary tables to assist with QC efforts</li>
+document with summary tables of outstanding QC information</li>
 <li>
 <strong><code><a href="../reference/renderQCReport.html">renderQCReport()</a></code></strong>: Generates a document
-to provide the QC status of files on the project</li>
+that provides the QC status of files on a project</li>
 </ul>
 <hr>
 </div>
@@ -202,10 +202,9 @@ included for these files.</p>
 </tr>
 </tbody>
 </table>
-<p>Each file that appears in this table has not been assigned in the
-<code>QClog.csv</code> file. This summary is intended to help identify
-files that have been recently modified (within 20 days) that should be
-added to the <code>QClog.csv</code> file.</p>
+<p>This summary is intended to identify files that have been recently
+modified (within the last 20 days) but have not been assigned in the
+<code>QClog.csv</code> file.</p>
 <hr>
 </div>
 </div>
@@ -220,21 +219,17 @@ report.</p>
 <div class="section level4">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a>
 </h4>
-<div class="section level5">
-<h5 id="compare-with-a-specific-previous-commit">Compare with a Specific Previous Commit<a class="anchor" aria-label="anchor" href="#compare-with-a-specific-previous-commit"></a>
-</h5>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/renderQCReport.html">renderQCReport</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Output:</strong></p>
 <div class="float">
-<img src="figures%2Fqc-report.png" width="700" alt="Output of renderQCReport(): The project name and date/time the report was generated is shown above the summary table. The table shows the QC status of all files in the QClog.csv file. If a file is up to date with QC, the date and commit hash of when the QC was completed is recorded."><div class="figcaption">Output of <code><a href="../reference/renderQCReport.html">renderQCReport()</a></code>: The
+<img src="figures%2Fqc-report.png" width="700" alt="Output of renderQCReport(): The project name and date/time the report was generated is shown above the summary table. The table shows the QC status of all files in the QClog.csv file. If a file is up to date with QC, the date and commit hash of when the QC was completed is shown."><div class="figcaption">Output of <code><a href="../reference/renderQCReport.html">renderQCReport()</a></code>: The
 project name and date/time the report was generated is shown above the
 summary table. The table shows the QC status of all files in the
 <code>QClog.csv</code> file. If a file is up to date with QC, the date
-and commit hash of when the QC was completed is recorded.</div>
+and commit hash of when the QC was completed is shown.</div>
 </div>
 <hr>
-</div>
 </div>
 </div>
 <div class="section level2">
@@ -242,8 +237,8 @@ and commit hash of when the QC was completed is recorded.</div>
 </h2>
 <ul>
 <li>
-<strong>Saving documents</strong>: Users can specify a directory to
-save either QC document to using the <code>.output_dir</code>
+<strong>Saving documents</strong>: Users can save either QC document
+to a specific directory using the <code>.output_dir</code>
 parameter.</li>
 </ul>
 <hr>
