@@ -1,19 +1,110 @@
 ---
-title: "Intro to deliv compare tools"
+title: A Guide to Using Compare Functions
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Intro to deliv compare tools}
+  %\VignetteIndexEntry{Compare Tools}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+This vignette provides detailed documentation and usage examples for the compare functions in the `qctools` package: `compareFigures()` and `compareTables()`. These functions facilitate a visual comparison of different versions of 
+outputs (ie. figures and tables).
+
+## Table of Contents
+
+-   Use cases: Leveraging version control vs local file comparisons
+-   **`compareFigures()`**: Generates a html document showing two versions of a list of figures (pdf or png).
+-   **`compareTables()`**: Generates a html document showing two versions of a list of tables (tex).
+
+---
+
+## Use cases
+
+`compareFigures()` and `compareTables()` can generate two types of comparisons.
+
+-   Comparisons of two versions of the same file (leveraging version control)
+-   Comparisons of two local files (with different names)
+
+Both functions have a `.path_previous` argument. If left empty, an html page will be generated comparing the
+current version of the figure/table to the most recent version checked into the Git repository. If the user provides
+a file path to the `.path_previous` argument, then the html page will show a comparison of the two local figures/tables.
+
+Additionally, users can generate these comparisons on either a single file or directory of files. If a directory is 
+given, the generated html page will contain all relevant figures/tables in the directory.
+
+### Setup
+
+For the sections below, the following project structure is used. Figures are stored in `deliv/figure` and tables
+are stored in `deliv/table`.
+
+```
+project/
+│
+├── deliv/
+│   ├── figure/
+|       ├── example-pdf1.pdf
+|       ├── example-pdf2.pdf
+|       ├── example-pdf3.pdf
+|       └── example-png1.png
+│   ├── table/
+│       ├── example-table-1.tex
+│       └── example-table-long-1.tex
 ```
 
-```{r setup}
-library(qctools)
+---
+
+## `compareFigures()`
+
+The `compareFigures()` function generates a html page with a visual comparison between two versions of a file. If a 
+directory is provided, all version controlled figures will be included in the html page.
+
+### Usage
+
+#### Compare versions of a single file
+
+```r
+compareFigures(.path_current = "deliv/figure/example-pdf1.pdf")
 ```
+
+**Output:**
+
+![Output of `compareFigures()`: Left box shows the version of the file currently checked into the repository. Right box shows version of the figure on disk.](figures/compare-fig-git.png){width=700}
+
+#### Compare two local figures
+
+```r
+compareFigures(
+  .path_current = "deliv/figure/example-pdf3.pdf",
+  .path_previous = "deliv/figure/example-pdf2.pdf")
+```
+
+**Output:**
+
+![Output of `compareFigures()`: Left box shows the current version of `deliv/figure/example-pdf2.pdf`. Right box shows the current version of `deliv/figure/example-pdf3.pdf`. When multi-page figures are being compared, users are able to scroll through all pages in the pdf.](figures/compare-fig-local.png){width=700}
+
+---
+
+## `compareTables()`
+
+The `compareTables()` function generates a html page with a visual comparison between two versions of a table. If a 
+directory is provided, all version controlled tables will be included in the html page.
+
+### Usage
+
+#### Compare versions of a single table
+
+```r
+compareTables(.path_current = "deliv/table/example-table-1.tex")
+```
+
+**Output:**
+
+![Output of `compareTables()`: Left box shows the version of the file currently checked into the repository. Right box shows version of the table on disk.](figures/compare-table-git.png){width=700}
+
+---
+
+# Additional Notes
+
+- **Customization**: Users can customize the display of comparison by adjusting the `.side_by_side` parameter as needed.
+
+---
