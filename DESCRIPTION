@@ -22,7 +22,9 @@ Imports:
     withr,
     rmarkdown,
     pmtables,
-    tinytex
+    tinytex,
+    dplyr,
+    tidyr
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
