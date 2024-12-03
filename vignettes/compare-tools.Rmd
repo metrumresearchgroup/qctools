@@ -8,13 +8,15 @@ vignette: >
 ---
 
 This vignette provides detailed documentation and usage examples for the compare functions in the `qctools` package: `compareFigures()` and `compareTables()`. These functions facilitate a visual comparison of different versions of 
-outputs (ie. figures and tables).
+outputs (e.g. figures and tables).
 
 ## Table of Contents
 
--   Use cases: Leveraging version control vs local file comparisons
--   **`compareFigures()`**: Generates a html document showing two versions of a list of figures (pdf or png).
--   **`compareTables()`**: Generates a html document showing two versions of a list of tables (tex).
+-   Use cases:
+    - Comparing versions of the same file
+    - Comparing two different files
+-   **`compareFigures()`**: Generates a document showing two versions of a list of figures (pdf or png).
+-   **`compareTables()`**: Generates a document showing two versions of a list of tables (tex).
 
 ---
 
@@ -23,14 +25,14 @@ outputs (ie. figures and tables).
 `compareFigures()` and `compareTables()` can generate two types of comparisons.
 
 -   Comparisons of two versions of the same file (leveraging version control)
--   Comparisons of two local files (with different names)
+-   Comparisons of two different files
 
-Both functions have a `.path_previous` argument. If left empty, an html page will be generated comparing the
-current version of the figure/table to the most recent version checked into the Git repository. If the user provides
-a file path to the `.path_previous` argument, then the html page will show a comparison of the two local figures/tables.
+Both functions have a `.path_previous` argument. If left empty, a document will be generated comparing the
+current version of the figure/table to the most recent version. If the user provides a file path to the 
+`.path_previous` argument, then the document will show a comparison of the two figures/tables.
 
-Additionally, users can generate these comparisons on either a single file or directory of files. If a directory is 
-given, the generated html page will contain all relevant figures/tables in the directory.
+Additionally, users can generate these comparisons on either a single file or a directory of files. If a directory is 
+given, the document will contain all relevant figures/tables in that directory.
 
 ### Setup
 
@@ -75,7 +77,8 @@ compareFigures(.path_current = "deliv/figure/example-pdf1.pdf")
 ```r
 compareFigures(
   .path_current = "deliv/figure/example-pdf3.pdf",
-  .path_previous = "deliv/figure/example-pdf2.pdf")
+  .path_previous = "deliv/figure/example-pdf2.pdf"
+)
 ```
 
 **Output:**
@@ -100,6 +103,17 @@ compareTables(.path_current = "deliv/table/example-table-1.tex")
 **Output:**
 
 ![Output of `compareTables()`: Left box shows the version of the file currently checked into the repository. Right box shows version of the table on disk.](figures/compare-table-git.png){width=700}
+
+#### Compare two local tables
+
+Similar to `compareFigures()`, users can compare two different tables with the following code:
+
+```r
+compareTables(
+  .path_current = "deliv/table/example-table-1.tex",
+  .path_previous = "example-table-long-1.tex"
+)
+```
 
 ---
 
