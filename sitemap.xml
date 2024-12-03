@@ -1,66 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/404.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/articles/compare-tools.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/articles/diff-tools.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/index.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/compareFigures.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/compareTables.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/demoRepo.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/diffOriginal.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/diffPreviousVersions.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/diffQced.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/gitLog.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/logAccept.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/logAssign.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/logCreate.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/logPending.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/logSummary.html</loc>
-  </url>
-  <url>
-    <loc>https://metrumresearchgroup.github.io/qctools/reference/pipe.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://metrumresearchgroup.github.io/qctools/404.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/articles/compare-tools.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/articles/diff-tools.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/articles/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/authors.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/news/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/compareFigures.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/compareTables.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/demoRepo.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/diffOriginal.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/diffPreviousVersions.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/diffQced.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/gitLog.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/logAccept.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/logAssign.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/logCreate.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/logPending.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/logSummary.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/qctools/reference/pipe.html</loc></url>
 </urlset>
+
