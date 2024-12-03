@@ -94,18 +94,23 @@
 the compare functions in the <code>qctools</code> package:
 <code><a href="../reference/compareFigures.html">compareFigures()</a></code> and <code><a href="../reference/compareTables.html">compareTables()</a></code>. These
 functions facilitate a visual comparison of different versions of
-outputs (ie. figures and tables).</p>
+outputs (e.g. figures and tables).</p>
 <div class="section level3">
 <h3 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
 </h3>
 <ul>
-<li>Use cases: Leveraging version control vs local file comparisons</li>
+<li>Use cases:
+<ul>
+<li>Comparing versions of the same file</li>
+<li>Comparing two different files</li>
+</ul>
+</li>
 <li>
-<strong><code><a href="../reference/compareFigures.html">compareFigures()</a></code></strong>: Generates a html
-document showing two versions of a list of figures (pdf or png).</li>
+<strong><code><a href="../reference/compareFigures.html">compareFigures()</a></code></strong>: Generates a document
+showing two versions of a list of figures (pdf or png).</li>
 <li>
-<strong><code><a href="../reference/compareTables.html">compareTables()</a></code></strong>: Generates a html
-document showing two versions of a list of tables (tex).</li>
+<strong><code><a href="../reference/compareTables.html">compareTables()</a></code></strong>: Generates a document
+showing two versions of a list of tables (tex).</li>
 </ul>
 <hr>
 </div>
@@ -117,17 +122,16 @@ generate two types of comparisons.</p>
 <ul>
 <li>Comparisons of two versions of the same file (leveraging version
 control)</li>
-<li>Comparisons of two local files (with different names)</li>
+<li>Comparisons of two different files</li>
 </ul>
 <p>Both functions have a <code>.path_previous</code> argument. If left
-empty, an html page will be generated comparing the current version of
-the figure/table to the most recent version checked into the Git
-repository. If the user provides a file path to the
-<code>.path_previous</code> argument, then the html page will show a
-comparison of the two local figures/tables.</p>
+empty, a document will be generated comparing the current version of the
+figure/table to the most recent version. If the user provides a file
+path to the <code>.path_previous</code> argument, then the document will
+show a comparison of the two figures/tables.</p>
 <p>Additionally, users can generate these comparisons on either a single
-file or directory of files. If a directory is given, the generated html
-page will contain all relevant figures/tables in the directory.</p>
+file or a directory of files. If a directory is given, the document will
+contain all relevant figures/tables in that directory.</p>
 <div class="section level4">
 <h4 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h4>
@@ -177,7 +181,8 @@ Right box shows version of the figure on disk.</div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/compareFigures.html">compareFigures</a></span><span class="op">(</span></span>
 <span>  .path_current <span class="op">=</span> <span class="st">"deliv/figure/example-pdf3.pdf"</span>,</span>
-<span>  .path_previous <span class="op">=</span> <span class="st">"deliv/figure/example-pdf2.pdf"</span><span class="op">)</span></span></code></pre></div>
+<span>  .path_previous <span class="op">=</span> <span class="st">"deliv/figure/example-pdf2.pdf"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><strong>Output:</strong></p>
 <div class="float">
 <img src="figures%2Fcompare-fig-local.png" width="700" alt="Output of compareFigures(): Left box shows the current version of deliv/figure/example-pdf2.pdf. Right box shows the current version of deliv/figure/example-pdf3.pdf. When multi-page figures are being compared, users are able to scroll through all pages in the pdf."><div class="figcaption">Output of <code><a href="../reference/compareFigures.html">compareFigures()</a></code>: Left
@@ -213,6 +218,17 @@ page.</p>
 shows the version of the file currently checked into the repository.
 Right box shows version of the table on disk.</div>
 </div>
+</div>
+<div class="section level5">
+<h5 id="compare-two-local-tables">Compare two local tables<a class="anchor" aria-label="anchor" href="#compare-two-local-tables"></a>
+</h5>
+<p>Similar to <code><a href="../reference/compareFigures.html">compareFigures()</a></code>, users can compare two
+different tables with the following code:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/compareTables.html">compareTables</a></span><span class="op">(</span></span>
+<span>  .path_current <span class="op">=</span> <span class="st">"deliv/table/example-table-1.tex"</span>,</span>
+<span>  .path_previous <span class="op">=</span> <span class="st">"example-table-long-1.tex"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 </div>
