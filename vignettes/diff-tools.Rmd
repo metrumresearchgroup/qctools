@@ -34,9 +34,9 @@ gitLog("script/data-assembly.R")
 
 | file                   | last_commit | last_author    | last_datetime        |
 |------------------------|-------------|-----------------|----------------------|
-| script/data-assembly.R | c4f837e     | Jane Doe        | 2024-11-19 10:00:00  |
-| script/data-assembly.R | 6f05a8b     | John Smith      | 2024-11-20 12:30:00  |
 | script/data-assembly.R | eb96eeb     | Alice Johnson   | 2024-11-21 15:45:00  |
+| script/data-assembly.R | 6f05a8b     | John Smith      | 2024-11-20 12:30:00  |
+| script/data-assembly.R | c4f837e     | Jane Doe        | 2024-11-19 10:00:00  |
 
 #### Retrieve Only the Last Commit
 
