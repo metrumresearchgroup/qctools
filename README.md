@@ -96,7 +96,7 @@ If we want to see the QC status of all files in the log, we can use `logSummary(
 
 # Workflow Example
 
-1.  **Create the log**:
+1.  **Create the log (once per project)**: 
 
     ``` r
     logCreate()
