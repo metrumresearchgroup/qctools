@@ -7,10 +7,11 @@ Packages:
   - devtools
   - pkgdown
   - mpn.scorecard
+  - roxygen2
 
 Repos:
   - CRAN: https://cran.rstudio.com
-  - MPN: https://mpn.metworx.com/snapshots/stable/2023-12-05 
+  - MPN: https://mpn.metworx.com/snapshots/stable/2024-11-20
 
 Lockfile:
     Type: renv
