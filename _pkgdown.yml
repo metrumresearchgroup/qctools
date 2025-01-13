@@ -27,6 +27,11 @@ reference:
     - diffPreviousVersions
     - demoRepo
     - with_demoRepo
+  - title: QC Summary Tools
+    desc: View QC status of files
+    contents:
+    - renderQCSummary
+    - renderQCReport
   - title: Git Helpers
     desc: Easily access information about Git repos
     contents:
