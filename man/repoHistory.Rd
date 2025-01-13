@@ -7,7 +7,7 @@
 repoHistory()
 }
 \description{
-Returns a data frame containing every commit made to the Git repository.
+Returns a data frame containing every commit made on the current branch.
 The information recorded includes the commit hash, author, date, and
 files changed in each commit.
 }

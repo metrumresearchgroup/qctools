@@ -1,23 +1,39 @@
 #' Get Git Repository History
 #'
 #' @description
-#' Returns a data frame containing every commit made to the Git repository.
+#' Returns a data frame containing every commit made on the current branch.
 #' The information recorded includes the commit hash, author, date, and
 #' files changed in each commit.
 #'
 #' @keywords internal
 repoHistory <- function() {
+  
+  log_dir <- logDir()
+  
   # Get the git log with commit hash, author name, author date, and files changed
   git_log <- processx::run(
     "git",
     c(
-      "--literal-pathspecs",          # Treat pathspecs literally
+      "-c",
+      "core.quotePath=false",
       "log",
       "--name-only",                  # Show only names of files changed
-      "--pretty=format:%H\t%an\t%ad", # Customize the log output format
-      "--date=format:%Y-%m-%d %H:%M:%S %z" # Specify date format
+      "--pretty=format:%H\t%an\t%ct", # Customize the log output format
+      "--",
+      "."
     ),
-    wd = logDir(),
+    wd = log_dir,
+    echo = FALSE,
+    error_on_status = TRUE
+  )$stdout
+  
+  git_prefix <- processx::run(
+    "git",
+    c(
+      "rev-parse",
+      "--show-prefix"
+    ),
+    wd = log_dir,
     echo = FALSE,
     error_on_status = TRUE
   )$stdout
@@ -25,6 +41,9 @@ repoHistory <- function() {
   # Split the output into lines
   log_lines <- strsplit(git_log, "\n")[[1]]
   log_lines <- log_lines[log_lines != ""]
+  
+  # Remove final new line
+  git_prefix <- sub("\n$", "", git_prefix)
   
   commit_df <- 
     dplyr::tibble(log_lines = log_lines) %>%
@@ -39,9 +58,13 @@ repoHistory <- function() {
     dplyr::transmute(
       file = log_lines,
       author,
-      date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S %z"),
+      date = as.POSIXct(as.integer(date), origin = "1970-01-01"),
       commit
     )
+  
+  if(!identical(git_prefix, "")){
+    commit_df$file <- sub(paste0("^\\Q", git_prefix, "\\E"), "", commit_df$file)
+  }
   
   commit_df
 }
