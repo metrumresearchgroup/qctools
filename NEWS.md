@@ -1,7 +1,9 @@
-# qctools development
+# qctools 0.3.0
 
 ## New features and changes
 
+- `renderQCSummary` generates a QC summary based on scripts within a given project and renders it into a PDF report. (#32)
+- `renderQCReport` generates a QC report based on the files within the QC log and renders it into a PDF report. (#32)
 - `repoHistory` added to return all commits made to every file. (#32)
 
 # qctools 0.2.1
