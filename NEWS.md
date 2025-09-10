@@ -1,3 +1,9 @@
+# qctools development
+
+## Bug fixes
+
+- Fixed `compareTables` and `compareFigures` output when comparing between local and repo versions. (#36)
+
 # qctools 0.3.0
 
 ## New features and changes
