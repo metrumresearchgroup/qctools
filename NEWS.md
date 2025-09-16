@@ -1,4 +1,4 @@
-# qctools development
+# qctools 0.3.1
 
 ## Bug fixes
 
